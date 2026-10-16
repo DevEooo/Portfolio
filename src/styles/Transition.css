@@ -1,0 +1,53 @@
+.stairs {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stairs-column {
+  position: relative;
+  flex: 1 1 0;
+  /* overlap neighbours slightly so sub-pixel widths never leave seams */
+  margin-right: -2px;
+}
+
+.stairs-column:last-child {
+  margin-right: 0;
+}
+
+.stairs-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--stairs-color);
+  transform: translateY(0);
+  transition: transform var(--stairs-duration) var(--stairs-easing) var(--stairs-delay);
+  will-change: transform;
+}
+
+.stairs-block--top {
+  top: 0;
+}
+
+.stairs-block--bottom {
+  bottom: 0;
+}
+
+.stairs.is-revealing .stairs-block--top {
+  transform: translateY(-101%);
+}
+
+.stairs.is-revealing .stairs-block--bottom {
+  transform: translateY(101%);
+}
+
+/* near-instant instead of "none" so transitionend (and onFinish) still fires */
+@media (prefers-reduced-motion: reduce) {
+  .stairs-block {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+}
