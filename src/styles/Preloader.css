@@ -1,0 +1,125 @@
+/*
+ * Preloader — inverted (light) theme.
+ * Tokens read the global design variables first and fall back to defaults,
+ * so the component works on its own.
+ */
+.preloader {
+  --pl-bg: var(--text, #f0f0f0);
+  --pl-ink: var(--void, #141616);
+  --pl-muted: var(--text-muted-light, #5f6868); /* 5.03:1 on --pl-bg (AA) */
+  --pl-font: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --pl-gutter: clamp(1rem, 0.6rem + 1.2vw, 1.5rem);
+  --pl-line-thickness: 2px;
+  --pl-counter-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+  --pl-counter-tracking: -0.02em;
+  --pl-counter-gap: clamp(1rem, 0.7rem + 1vw, 1.75rem);
+  --pl-label-size: 0.75rem;
+  --pl-label-leading: 1.5;
+  --pl-label-tracking: 0.04em;
+  --pl-footer-gap: 1rem;
+  --pl-z: var(--z-preloader, 1000);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--pl-z);
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--pl-bg);
+  color: var(--pl-ink);
+  font-family: var(--pl-font);
+  cursor: progress;
+  touch-action: none;
+  user-select: none;
+}
+
+.preloader-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.preloader-counter-wrap {
+  position: absolute;
+  inset-inline: 0;
+  bottom: calc(50% + var(--pl-counter-gap));
+  display: flex;
+  justify-content: center;
+}
+
+.preloader-counter {
+  display: block;
+  font-size: var(--pl-counter-size);
+  line-height: 1;
+  letter-spacing: var(--pl-counter-tracking);
+  font-variant-numeric: tabular-nums;
+  will-change: transform, opacity;
+}
+
+/* One element is the dot, the progress bar, the rotating line and the wipe. */
+.preloader-line {
+  position: absolute;
+  inset-inline: var(--pl-gutter);
+  top: 50%;
+  height: var(--pl-line-thickness);
+  margin-top: calc(var(--pl-line-thickness) / -2);
+  background: var(--pl-ink);
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.preloader-footer {
+  position: absolute;
+  left: max(var(--pl-gutter), env(safe-area-inset-left));
+  right: max(var(--pl-gutter), env(safe-area-inset-right));
+  bottom: max(var(--pl-gutter), env(safe-area-inset-bottom));
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--pl-footer-gap);
+  font-size: var(--pl-label-size);
+  line-height: var(--pl-label-leading);
+  letter-spacing: var(--pl-label-tracking);
+  text-transform: uppercase;
+  color: var(--pl-muted);
+}
+
+.preloader-identity,
+.preloader-status {
+  margin: 0;
+  will-change: transform, opacity;
+}
+
+.preloader-identity-line {
+  display: block;
+}
+
+.preloader-status {
+  text-align: end;
+}
+
+.preloader-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Safety net: JS already skips the preloader under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* Page underneath stays light and locked while the preloader runs. */
+html.is-preloading,
+html.is-preloading body {
+  background: var(--text, #f0f0f0);
+  overflow: hidden;
+}

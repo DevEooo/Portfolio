@@ -1,9 +1,11 @@
 :root {
   --void: #141616;   --surface: #1C1F1F;  --line: #2A2F2F;
   --text: #F0F0F0;   --text-body: #B8BFBF; --text-muted: #7D8686;
+  --text-muted-light: #5F6868;
   --azure: #007FFF;  --azure-light: #4DA3FF; --azure-dim: rgb(0 127 255 / .14);
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
+  --z-preloader: 10000; /* above the stairs transition (9999) */
 }
 
 ::selection { background: var(--azure-dim); color: var(--text); }

@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>portfolio</title>
+    <!-- Paint the first frame light when the preloader will run. Key must match PRELOADER_STORAGE_KEY. -->
+    <script>
+      (function () {
+        try {
+          var seen = sessionStorage.getItem('hp:preloader-seen') === '1';
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!seen && !reduce) document.documentElement.classList.add('is-preloading');
+        } catch (e) {}
+      })();
+    </script>
+    <style>html.is-preloading, html.is-preloading body { background: #f0f0f0; }</style>
   </head>
   <body>
     <div id="root"></div>
