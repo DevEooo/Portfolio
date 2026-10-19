@@ -1,8 +1,3 @@
-/*
- * Preloader — inverted (light) theme.
- * Tokens read the global design variables first and fall back to defaults,
- * so the component works on its own.
- */
 .preloader {
   --pl-bg: var(--text, #f0f0f0);
   --pl-ink: var(--void, #141616);
@@ -55,7 +50,6 @@
   will-change: transform, opacity;
 }
 
-/* One element is the dot, the progress bar, the rotating line and the wipe. */
 .preloader-line {
   position: absolute;
   inset-inline: var(--pl-gutter);
@@ -110,14 +104,12 @@
   border: 0;
 }
 
-/* Safety net: JS already skips the preloader under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .preloader {
     display: none;
   }
 }
 
-/* Page underneath stays light and locked while the preloader runs. */
 html.is-preloading,
 html.is-preloading body {
   background: var(--text, #f0f0f0);

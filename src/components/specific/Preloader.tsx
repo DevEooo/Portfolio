@@ -6,39 +6,28 @@ import "../../styles/Preloader.css";
 gsap.registerPlugin(useGSAP);
 
 export type PreloaderContent = {
-  /** Lines shown bottom-left, e.g. role and location. */
   identity: readonly string[];
-  /** Bottom-right status label before and after loading finishes. */
   status: { loading: string; ready: string };
-  /** Announced once to assistive technology. */
   srLabel: string;
 };
 
 interface PreloaderProps {
   content: PreloaderContent;
-  /** Fires once the screen is fully covered by the wipe (or immediately when skipped). Unmount the preloader and start the hero entrance here. */
   onComplete: () => void;
-  /** App-level readiness, e.g. hero route chunk loaded. Web fonts are awaited internally. */
   ready?: boolean;
-  /** sessionStorage key that marks the preloader as seen for this session. */
   storageKey?: string;
 }
 
-/** Must match the key used by the inline script in index.html. */
 export const PRELOADER_STORAGE_KEY = "hp:preloader-seen";
 export const PRELOADER_HTML_CLASS = "is-preloading";
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 const FULL_MOTION = "(prefers-reduced-motion: no-preference)";
 
-/** Motion tokens. Durations in seconds, distances in px. */
 const MOTION = {
   dotIn: 0.15,
-  /** Shortest time the load phase is visible, so fast connections still read it. */
   minLoad: 0.5,
-  /** Hard cap: the preloader moves on even if assets are not ready. */
   maxLoad: 1.2,
-  /** Progress fraction the counter creeps toward while waiting on readiness. */
   softCap: 0.9,
   pollInterval: 0.1,
   settle: 0.25,
@@ -47,13 +36,10 @@ const MOTION = {
   exitStagger: 0.05,
   exitShift: 12,
   rotate: 0.45,
-  /** Rotation starts before the labels finish fading. */
   rotateOverlap: 0.15,
   wipe: 0.5,
   wipeOverlap: 0.1,
-  /** Extra coverage so sub-pixel rounding never leaves a white edge. */
   overscan: 1.05,
-  /** Speed multiplier when the visitor skips with a key press or tap. */
   skipTimeScale: 4,
   ease: {
     creep: "power2.out",
@@ -74,9 +60,7 @@ function hasSeen(key: string): boolean {
 function markSeen(key: string): void {
   try {
     window.sessionStorage.setItem(key, "1");
-  } catch {
-    // Storage blocked (private mode, policy): the preloader simply shows again next visit.
-  }
+  } catch {}
 }
 
 function prefersReducedMotion(): boolean {
@@ -110,7 +94,6 @@ export default function Preloader({
     onCompleteRef.current = onComplete;
   }, [ready, onComplete]);
 
-  // Plain callback (not useEffectEvent) because it is also called from useGSAP and GSAP callbacks.
   const complete = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
@@ -119,12 +102,10 @@ export default function Preloader({
     onCompleteRef.current();
   }, [storageKey]);
 
-  // Repeat visit or reduced motion: never render, hand control straight back.
   useEffect(() => {
     if (!shouldShow) complete();
   }, [shouldShow, complete]);
 
-  // Keep the page light and unscrollable underneath while the preloader runs.
   useEffect(() => {
     if (!shouldShow) return;
     const html = document.documentElement;
@@ -143,20 +124,17 @@ export default function Preloader({
 
       const mm = gsap.matchMedia();
 
-      // Visitor switches reduced motion on mid-run: finish immediately.
       mm.add(REDUCED_MOTION, () => {
         complete();
       });
 
       mm.add(FULL_MOTION, () => {
-        // Font Loading API is missing in some embedded browsers: treat fonts as ready there.
         const fontSet: FontFaceSet | undefined = document.fonts;
         let fontsReady = !fontSet;
         void fontSet?.ready.then(() => {
           fontsReady = true;
         });
 
-        // The line starts as a square dot exactly as thick as the line itself.
         const thickness = line.offsetHeight || 1;
         const startScale = thickness / (line.offsetWidth || thickness);
         const progress = { value: 0 };
@@ -210,8 +188,6 @@ export default function Preloader({
         };
 
         const playExit = (): void => {
-          // Measured now, so rotation/resize between mount and exit is respected.
-          // Portrait screens: the line must also lengthen to reach top and bottom once vertical.
           const coverScale = Math.max(1, root.clientHeight / (line.offsetWidth || 1)) * MOTION.overscan;
           const wipeScale = (root.clientWidth / thickness) * MOTION.overscan;
 
