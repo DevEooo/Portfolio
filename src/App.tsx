@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import StairsReveal from './components/common/Transition.tsx'
+// import StairsReveal from './components/common/Transition.tsx'
 import Preloader from './components/specific/Preloader.tsx'
-import { preloaderContent } from './data/preloader.ts'
+import { preloaderContent } from './data/Preloader.ts'
 
 function App() {
   const [isPreloading, setIsPreloading] = useState(true)
@@ -10,7 +10,7 @@ function App() {
   return(
     <>
       <main inert={isPreloading}></main>
-      <StairsReveal revealing={!isPreloading}/>
+
       {isPreloading && (
         <Preloader content={preloaderContent} onComplete={() => setIsPreloading(false)}/>
       )}

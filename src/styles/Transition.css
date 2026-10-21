@@ -9,7 +9,6 @@
 .stairs-column {
   position: relative;
   flex: 1 1 0;
-  /* overlap neighbours slightly so sub-pixel widths never leave seams */
   margin-right: -2px;
 }
 
@@ -44,7 +43,6 @@
   transform: translateY(101%);
 }
 
-/* near-instant instead of "none" so transitionend (and onFinish) still fires */
 @media (prefers-reduced-motion: reduce) {
   .stairs-block {
     transition-duration: 1ms;
