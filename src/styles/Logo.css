@@ -1,0 +1,35 @@
+.logo {
+  --logo-height: 0.6875rem;
+  --logo-accent: var(--azure-light, #4da3ff);
+  --logo-dot-stretch: 12;
+  --logo-duration: var(--duration-medium, 400ms);
+  --logo-ease: var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+
+  display: block;
+  width: auto;
+  height: var(--logo-height);
+  overflow: visible;
+}
+
+.logo__letters {
+  fill: currentColor;
+}
+
+.logo__dot {
+  fill: var(--logo-accent);
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  transition: transform var(--logo-duration) var(--logo-ease);
+}
+
+@media (hover: hover) {
+  a:hover .logo__dot {
+    transform: scaleX(var(--logo-dot-stretch));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo__dot {
+    transition: none;
+  }
+}

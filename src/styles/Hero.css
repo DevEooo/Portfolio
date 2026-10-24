@@ -8,10 +8,9 @@
   --hero-font-display: var(--font-display, "Space Grotesk", system-ui, sans-serif);
   --hero-font-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
   --hero-name-size: clamp(2.75rem, 17vw, 5.5rem);
-  --hero-name-weight: 300;
-  --hero-name-leading: 0.88;
-  --hero-name-tracking: -0.03em;
   --hero-name-offset: 1.9em;
+  --hero-name-box: 1.06em;
+  --hero-name-bleed: 5.263%;
   --hero-statement-size: clamp(1rem, 0.92rem + 0.35vw, 1.25rem);
   --hero-statement-leading: 1.45;
   --hero-statement-measure: 30rem;
@@ -95,18 +94,17 @@
   margin: 0;
   font-family: var(--hero-font-display);
   font-size: var(--hero-name-size);
-  font-weight: var(--hero-name-weight);
-  line-height: var(--hero-name-leading);
-  letter-spacing: var(--hero-name-tracking);
-  text-transform: uppercase;
 }
 
-.hero__name-line {
-  display: block;
+.hero__name .hero__name-line {
+  width: calc(100% + var(--hero-name-bleed));
+  height: var(--hero-name-box);
+  margin-inline-start: calc(var(--hero-name-bleed) * -1);
 }
 
-.hero__name-line--offset {
-  padding-inline-start: var(--hero-name-offset);
+.hero__name .hero__name-line--offset {
+  width: calc(100% + var(--hero-name-bleed) - var(--hero-name-offset));
+  margin-inline-start: calc(var(--hero-name-offset) - var(--hero-name-bleed));
 }
 
 .hero__statement {

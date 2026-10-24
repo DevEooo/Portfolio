@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 // import StairsReveal from './components/common/Transition.tsx'
 import SiteHeader from './components/common/SiteHeader.tsx'
 import Preloader from './components/specific/Preloader.tsx'

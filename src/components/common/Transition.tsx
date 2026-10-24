@@ -4,20 +4,15 @@ import "../../styles/Transition.css";
 type StaggerOrigin = "left" | "right" | "center" | "edges";
 
 interface StairsRevealProps {
-  /** false = blocks cover the screen, true = blocks slide away. Toggling animates both ways. */
   revealing?: boolean;
   columns?: number;
-  /** ms, per-block slide duration */
   duration?: number;
-  /** ms, delay added per column step */
   stagger?: number;
-  /** which side the stagger starts from */
   origin?: StaggerOrigin;
   color?: string;
   easing?: string;
   zIndex?: number;
   className?: string;
-  /** fires once the last column finishes; receives the state it finished in */
   onFinish?: (revealing: boolean) => void;
 }
 

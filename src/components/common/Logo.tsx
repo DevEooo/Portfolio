@@ -1,0 +1,32 @@
+import "../../styles/Logo.css";
+
+const WORDMARK = {
+  viewBox: "0 0 371.8 75",
+  letters:
+    "M0 75L0 0L20.70 0L20.70 27.70L59 27.70L59 0L79.80 0L79.80 75L59 75L59 46.10L20.70 46.10L20.70 75M127.30 48L116.50 48L116.50 75L95.80 75L95.80 0L140.30 0Q148.90 0 155.30 3.05Q161.70 6.10 165.30 11.45Q168.90 16.80 168.90 24.10Q168.90 31.20 165.30 36.60Q161.70 42 155.30 45Q152.80 46.20 150 46.90L171.50 75L147.50 75L127.30 48M116.50 15.40L116.50 32.80L137.40 32.80Q142.40 32.80 145.20 30.50Q148 28.20 148 24.10Q148 19.90 145.20 17.65Q142.40 15.40 137.40 15.40M182.80 0L203.50 0L203.50 56.60L250.30 56.60L250.30 75L182.80 75M261.20 0L298.60 0Q311.90 0 321.95 4.65Q332 9.30 337.55 17.75Q343.10 26.20 343.10 37.50Q343.10 48.80 337.55 57.25Q332 65.70 321.95 70.35Q311.90 75 298.60 75L261.20 75L261.20 0M281.80 18.40L281.80 56.60L300.20 56.60Q306.90 56.60 311.85 54.25Q316.80 51.90 319.50 47.60Q322.20 43.30 322.20 37.50Q322.20 31.60 319.50 27.35Q316.80 23.10 311.85 20.75Q306.90 18.40 300.20 18.40",
+  dot: { x: 354.8, y: 58, size: 17 },
+} as const;
+
+interface LogoProps {
+  className?: string;
+}
+
+export default function Logo({ className }: LogoProps) {
+  return (
+    <svg
+      className={className ? `logo ${className}` : "logo"}
+      viewBox={WORDMARK.viewBox}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path className="logo__letters" d={WORDMARK.letters} />
+      <rect
+        className="logo__dot"
+        x={WORDMARK.dot.x}
+        y={WORDMARK.dot.y}
+        width={WORDMARK.dot.size}
+        height={WORDMARK.dot.size}
+      />
+    </svg>
+  );
+}

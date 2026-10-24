@@ -2,6 +2,7 @@ import { useId, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { HeroContent } from "../../types/site.ts";
+import TechText from "../common/TechText.tsx";
 import "../../styles/Hero.css";
 
 gsap.registerPlugin(useGSAP);
@@ -14,6 +15,13 @@ const SCROLL_CUE = {
   hold: 0.15,
   origin: "50% 0%",
   ease: "sine.inOut",
+} as const;
+
+const NAME_TEXT = {
+  fontWeight: 300,
+  fontSize: 160,
+  letterSpacing: -0.03,
+  align: "left",
 } as const;
 
 interface HeroProps {
@@ -79,8 +87,12 @@ export default function Hero({ content }: HeroProps) {
       </div>
 
       <h1 id={titleId} className="hero__name">
-        <span className="hero__name-line">{name.first}</span>{" "}
-        <span className="hero__name-line hero__name-line--offset">{name.last}</span>
+        <TechText {...NAME_TEXT} className="hero__name-line" text={name.first.toUpperCase()} />{" "}
+        <TechText
+          {...NAME_TEXT}
+          className="hero__name-line hero__name-line--offset"
+          text={name.last.toUpperCase()}
+        />
       </h1>
 
       <p className="hero__statement">{statement}</p>

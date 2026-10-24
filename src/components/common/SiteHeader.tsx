@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { SiteHeaderContent } from "../../types/site.ts";
+import Logo from "./Logo.tsx";
 import "../../styles/SiteHeader.css";
 
 const MINUTE_MS = 60_000;
@@ -13,7 +14,6 @@ function formatTime(date: Date, timeZone: string): string {
   }).format(date);
 }
 
-/** Current time, refreshed exactly on each minute boundary. */
 function useMinuteClock(): Date {
   const [now, setNow] = useState(() => new Date());
 
@@ -35,7 +35,6 @@ function useMinuteClock(): Date {
 
 interface SiteHeaderProps {
   content: SiteHeaderContent;
-  /** Keeps keyboard focus out of the header while something (e.g. the preloader) covers it. */
   inert?: boolean;
 }
 
@@ -46,7 +45,7 @@ export default function SiteHeader({ content, inert = false }: SiteHeaderProps) 
   return (
     <header className="site-header" inert={inert}>
       <a className="site-header__logo" href={logo.href} aria-label={logo.ariaLabel}>
-        {logo.label}
+        <Logo />
       </a>
 
       <p className="site-header__clock">

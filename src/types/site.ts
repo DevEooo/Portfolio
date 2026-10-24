@@ -5,7 +5,6 @@ export type NavLink = {
 
 export type SiteHeaderContent = {
   logo: {
-    label: string;
     href: string;
     ariaLabel: string;
   };
