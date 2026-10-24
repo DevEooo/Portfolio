@@ -9,8 +9,6 @@ export const heroContent = {
   name: { first: "Herald", last: "Panji" },
   statement:
     "I build AI tools that automate manual work and stay practical to use, for small businesses and startups that just need things to work.",
-  cta: { label: "View my work", href: "/work" },
-  // TODO: replace with the hero visual once it is chosen.
   visual: { placeholder: "TODO — hero visual" },
   scrollCue: "Scroll to explore",
 } as const satisfies HeroContent;

@@ -1,20 +1,10 @@
-/*
- * Hero — V1.
- * Desktop grid: left half (statement, name) | visual | scroll rail.
- * The left column is exactly 50% so the visual starts on the page centre line,
- * the same line the header's clock and role sit on.
- * Tokens read the global design variables first, with fallbacks.
- */
 .hero {
-  /* Layout */
   --hero-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
   --hero-header-offset: var(--site-header-height, 4rem);
   --hero-rail: 3rem;
   --hero-row-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
-  --hero-intro-gap: 1.5rem;
   --hero-visual-ratio: 4 / 5;
 
-  /* Type */
   --hero-font-display: var(--font-display, "Space Grotesk", system-ui, sans-serif);
   --hero-font-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
   --hero-name-size: clamp(2.75rem, 17vw, 5.5rem);
@@ -27,37 +17,20 @@
   --hero-statement-measure: 30rem;
   --hero-label-size: 0.75rem;
   --hero-label-tracking: 0.04em;
-  --hero-cta-size: 0.8125rem;
 
-  /* Colour */
   --hero-bg: var(--void, #141616);
   --hero-surface: var(--surface, #1c1f1f);
   --hero-line: var(--line, #2a2f2f);
-  --hero-line-strong: var(--line-strong, #687171);
   --hero-text: var(--text, #f0f0f0);
   --hero-text-muted: var(--text-muted, #8a9393);
   --hero-accent: var(--azure-light, #4da3ff);
-  --hero-focus: var(--azure, #007fff);
 
-  /* Components */
   --hero-dot: 0.375rem;
-  --hero-cta-pad-block: 0.75rem;
-  --hero-cta-pad-inline: 1.25rem 1rem;
-  --hero-cta-gap: 0.625rem;
-  --hero-cta-icon: 1rem;
-  --hero-cta-icon-stroke: 1.5;
-  --hero-cta-nudge: 0.25rem;
-  --hero-radius-pill: var(--radius-pill, 999px);
   --hero-border: 1px;
-  --hero-focus-width: 2px;
-  --hero-focus-offset: 3px;
-  --hero-cue-track: 3rem;
+  --hero-cue-length: 4rem;
+  --hero-cue-width: 1px;
   --hero-cue-gap: 0.75rem;
-  --hero-cue-rest: 0.35; /* static line length for reduced motion / before JS */
-
-  /* Motion */
-  --hero-duration: var(--duration-fast, 200ms);
-  --hero-ease: var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  --hero-cue-min: 0.4;
 
   box-sizing: border-box;
   position: relative;
@@ -72,14 +45,12 @@
   min-height: 100vh;
   min-height: 100svh;
   padding: var(--hero-header-offset) var(--hero-gutter) var(--hero-gutter);
-  /* The tight name leading lets line boxes poke past the section; clip so it never adds a scrollbar. */
   overflow: hidden;
   overflow: clip;
   background: var(--hero-bg);
   color: var(--hero-text);
 }
 
-/* ---------- Meta row ---------- */
 .hero__meta {
   grid-area: meta;
   display: grid;
@@ -118,7 +89,6 @@
   background: var(--hero-accent);
 }
 
-/* ---------- Name ---------- */
 .hero__name {
   grid-area: name;
   align-self: end;
@@ -139,65 +109,16 @@
   padding-inline-start: var(--hero-name-offset);
 }
 
-/* ---------- Statement + CTA ---------- */
-.hero__intro {
-  grid-area: intro;
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--hero-intro-gap);
-  max-width: var(--hero-statement-measure);
-}
-
 .hero__statement {
+  grid-area: intro;
+  align-self: center;
+  max-width: var(--hero-statement-measure);
   margin: 0;
   font-family: var(--hero-font-display);
   font-size: var(--hero-statement-size);
   line-height: var(--hero-statement-leading);
 }
 
-.hero__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--hero-cta-gap);
-  padding-block: var(--hero-cta-pad-block);
-  padding-inline: var(--hero-cta-pad-inline);
-  border: var(--hero-border) solid var(--hero-line-strong);
-  border-radius: var(--hero-radius-pill);
-  font-family: var(--hero-font-mono);
-  font-size: var(--hero-cta-size);
-  color: var(--hero-text);
-  text-decoration: none;
-  transition: border-color var(--hero-duration) var(--hero-ease), color var(--hero-duration) var(--hero-ease);
-}
-
-.hero__cta:hover {
-  border-color: var(--hero-accent);
-  color: var(--hero-accent);
-}
-
-.hero__cta:focus-visible {
-  outline: var(--hero-focus-width) solid var(--hero-focus);
-  outline-offset: var(--hero-focus-offset);
-}
-
-.hero__cta-icon {
-  width: var(--hero-cta-icon);
-  height: var(--hero-cta-icon);
-  fill: none;
-  stroke: currentColor;
-  stroke-width: var(--hero-cta-icon-stroke);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform var(--hero-duration) var(--hero-ease);
-}
-
-.hero__cta:hover .hero__cta-icon {
-  transform: translateX(var(--hero-cta-nudge));
-}
-
-/* ---------- Visual (placeholder) ---------- */
 .hero__visual {
   grid-area: visual;
   box-sizing: border-box;
@@ -217,7 +138,6 @@
   color: var(--hero-text-muted);
 }
 
-/* ---------- Scroll cue (desktop only) ---------- */
 .hero__scroll {
   display: none;
 }
@@ -228,30 +148,28 @@
 
 .hero__scroll-track {
   position: relative;
-  width: var(--hero-border);
-  height: var(--hero-cue-track);
-  overflow: hidden;
-  background: var(--hero-line);
+  width: var(--hero-cue-width);
+  height: var(--hero-cue-length);
 }
 
 .hero__scroll-segment {
   position: absolute;
   inset: 0;
   background: var(--hero-text);
-  transform: scaleY(var(--hero-cue-rest));
+  transform: scaleY(var(--hero-cue-min));
   transform-origin: 50% 0%;
   will-change: transform;
 }
 
-/* ---------- Tablet & desktop ---------- */
 @media (min-width: 48rem) {
   .hero {
     --hero-name-size: clamp(3.5rem, min(9vw, 16svh), 10rem);
 
     grid-template-columns: 50% minmax(0, 1fr) var(--hero-rail);
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-rows: auto 1fr auto 1fr auto;
     grid-template-areas:
       "meta  meta   meta"
+      ".     visual ."
       "intro visual ."
       ".     visual ."
       "name  visual .";
@@ -265,11 +183,10 @@
     display: block;
   }
 
-  .hero__intro {
+  .hero__statement {
     padding-inline-end: var(--hero-gutter);
   }
 
-  /* Visual fills the rows it spans: top meets the statement, bottom meets the name. */
   .hero__visual {
     aspect-ratio: auto;
   }
@@ -288,12 +205,5 @@
     letter-spacing: var(--hero-label-tracking);
     text-transform: uppercase;
     color: var(--hero-text-muted);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__cta,
-  .hero__cta-icon {
-    transition: none;
   }
 }
