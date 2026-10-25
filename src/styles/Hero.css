@@ -4,6 +4,8 @@
   --hero-rail: 3rem;
   --hero-row-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
   --hero-visual-ratio: 4 / 5;
+  --hero-visual-contrast: 1.15;
+  --hero-visual-fade: radial-gradient(ellipse farthest-side at 50% 45%, #000 55%, transparent 100%);
 
   --hero-font-display: var(--font-display, "Space Grotesk", system-ui, sans-serif);
   --hero-font-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
@@ -18,14 +20,11 @@
   --hero-label-tracking: 0.04em;
 
   --hero-bg: var(--void, #141616);
-  --hero-surface: var(--surface, #1c1f1f);
-  --hero-line: var(--line, #2a2f2f);
   --hero-text: var(--text, #f0f0f0);
   --hero-text-muted: var(--text-muted, #8a9393);
   --hero-accent: var(--azure-light, #4da3ff);
 
   --hero-dot: 0.375rem;
-  --hero-border: 1px;
   --hero-cue-length: 4rem;
   --hero-cue-width: 1px;
   --hero-cue-gap: 0.75rem;
@@ -120,20 +119,25 @@
 .hero__visual {
   grid-area: visual;
   box-sizing: border-box;
-  display: grid;
-  place-items: center;
+  position: relative;
   min-height: 0;
   aspect-ratio: var(--hero-visual-ratio);
-  border: var(--hero-border) solid var(--hero-line);
-  background: var(--hero-surface);
+  overflow: hidden;
+  -webkit-mask-image: var(--hero-visual-fade);
+  mask-image: var(--hero-visual-fade);
 }
 
-.hero__visual-placeholder {
-  font-family: var(--hero-font-mono);
-  font-size: var(--hero-label-size);
-  letter-spacing: var(--hero-label-tracking);
-  text-transform: uppercase;
-  color: var(--hero-text-muted);
+.hero__visual-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__visual-fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(var(--hero-visual-contrast));
 }
 
 .hero__scroll {

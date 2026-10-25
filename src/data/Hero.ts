@@ -9,6 +9,9 @@ export const heroContent = {
   name: { first: "Herald", last: "Panji" },
   statement:
     "I build AI tools that automate manual work and stay practical to use, for small businesses and startups that just need things to work.",
-  visual: { placeholder: "TODO — hero visual" },
+  visual: {
+    src: "/images/herald.png",
+    alt: "Black-and-white portrait of Herald Panji in glasses and a striped shirt, looking off to the side against blurred night lights",
+  },
   scrollCue: "Scroll to explore",
 } as const satisfies HeroContent;

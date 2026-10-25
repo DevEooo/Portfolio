@@ -1,11 +1,14 @@
-import { useId, useRef } from "react";
+import { lazy, Suspense, useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import type { HeroContent } from "../../types/site.ts";
+import ErrorBoundary from "../common/ErrorBoundary.tsx";
 import TechText from "../common/TechText.tsx";
 import "../../styles/Hero.css";
 
 gsap.registerPlugin(useGSAP);
+
+const DitherVeil = lazy(() => import("../common/Dither.tsx"));
 
 const FULL_MOTION = "(prefers-reduced-motion: no-preference)";
 
@@ -24,6 +27,25 @@ const NAME_TEXT = {
   align: "left",
 } as const;
 
+const VISUAL_DITHER = {
+  fit: "cover",
+  pattern: "floyd",
+  pixelSize: 2,
+  levels: 2,
+  contrast: 1.15,
+  revealRadius: 160,
+  softness: 0.6,
+  linger: 1,
+  rim: 0.12,
+} as const;
+
+const HEX_COLOR = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
+
+function readColorToken(name: string, fallback: string): string {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return HEX_COLOR.test(value) ? value : fallback;
+}
+
 interface HeroProps {
   content: HeroContent;
 }
@@ -34,6 +56,11 @@ export default function Hero({ content }: HeroProps) {
   const rootRef = useRef<HTMLElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
   const segmentRef = useRef<HTMLSpanElement>(null);
+  const [visualColors] = useState(() => ({
+    ink: readColorToken("--void", "#141616"),
+    paper: readColorToken("--text", "#f0f0f0"),
+    rim: readColorToken("--azure-light", "#4da3ff"),
+  }));
 
   useGSAP(
     () => {
@@ -97,8 +124,21 @@ export default function Hero({ content }: HeroProps) {
 
       <p className="hero__statement">{statement}</p>
 
-      <div className="hero__visual" aria-hidden="true">
-        <span className="hero__visual-placeholder">{visual.placeholder}</span>
+      <div className="hero__visual" role="img" aria-label={visual.alt}>
+        <ErrorBoundary
+          fallback={<img className="hero__visual-fallback" src={visual.src} alt="" decoding="async" />}
+        >
+          <Suspense fallback={null}>
+            <DitherVeil
+              {...VISUAL_DITHER}
+              src={visual.src}
+              inkColor={visualColors.ink}
+              paperColor={visualColors.paper}
+              rimColor={visualColors.rim}
+              className="hero__visual-canvas"
+            />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       <div ref={cueRef} className="hero__scroll" aria-hidden="true">

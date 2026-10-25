@@ -32,7 +32,8 @@ export type HeroContent = {
   };
   statement: string;
   visual: {
-    placeholder: string;
+    src: string;
+    alt: string;
   };
   scrollCue: string;
 };
