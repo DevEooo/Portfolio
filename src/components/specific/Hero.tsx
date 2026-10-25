@@ -27,6 +27,16 @@ const NAME_TEXT = {
   align: "left",
 } as const;
 
+const HERO_INTRO = {
+  name: { at: 0, from: 110, duration: 1.1, stagger: 0.1, ease: "expo.out" },
+  fade: { y: 16, duration: 0.8, ease: "power3.out" },
+  metaAt: 0.2,
+  metaStagger: 0.06,
+  statementAt: 0.3,
+  shutter: { at: 0.25, duration: 0.9, ease: "power3.inOut" },
+  cueAt: 0.7,
+} as const;
+
 const VISUAL_DITHER = {
   fit: "cover",
   pattern: "floyd",
@@ -48,9 +58,10 @@ function readColorToken(name: string, fallback: string): string {
 
 interface HeroProps {
   content: HeroContent;
+  revealed?: boolean;
 }
 
-export default function Hero({ content }: HeroProps) {
+export default function Hero({ content, revealed = true }: HeroProps) {
   const { meta, name, statement, visual, scrollCue } = content;
   const titleId = useId();
   const rootRef = useRef<HTMLElement>(null);
@@ -61,6 +72,72 @@ export default function Hero({ content }: HeroProps) {
     paper: readColorToken("--text", "#f0f0f0"),
     rim: readColorToken("--azure-light", "#4da3ff"),
   }));
+
+  useGSAP(
+    () => {
+      const root = rootRef.current;
+      if (!root) return;
+      const q = gsap.utils.selector(root);
+      const mm = gsap.matchMedia();
+
+      mm.add(FULL_MOTION, () => {
+        const nameText = q(".hero__name-text");
+        const metaItems = q(".hero__meta-item");
+        const statement = q(".hero__statement");
+        const visualBox = q(".hero__visual");
+        const shutterStart = q(".hero__visual-shutter--start");
+        const shutterEnd = q(".hero__visual-shutter--end");
+        const cue = q(".hero__scroll");
+
+        if (!revealed) {
+          gsap.set(nameText, { yPercent: HERO_INTRO.name.from });
+          gsap.set([...metaItems, ...statement, ...cue], { opacity: 0 });
+          gsap.set([...shutterStart, ...shutterEnd], { x: 0, xPercent: 0 });
+          gsap.set(visualBox, { visibility: "hidden" });
+          return;
+        }
+
+        const { name: nameIntro, fade, shutter } = HERO_INTRO;
+        gsap
+          .timeline()
+          .set(visualBox, { visibility: "visible" }, 0)
+          .fromTo(
+            nameText,
+            { yPercent: nameIntro.from },
+            { yPercent: 0, duration: nameIntro.duration, stagger: nameIntro.stagger, ease: nameIntro.ease },
+            nameIntro.at,
+          )
+          .fromTo(
+            metaItems,
+            { opacity: 0, y: fade.y },
+            { opacity: 1, y: 0, duration: fade.duration, stagger: HERO_INTRO.metaStagger, ease: fade.ease },
+            HERO_INTRO.metaAt,
+          )
+          .fromTo(
+            statement,
+            { opacity: 0, y: fade.y },
+            { opacity: 1, y: 0, duration: fade.duration, ease: fade.ease },
+            HERO_INTRO.statementAt,
+          )
+          .fromTo(
+            shutterStart,
+            { x: 0, xPercent: 0 },
+            { xPercent: -100, duration: shutter.duration, ease: shutter.ease },
+            shutter.at,
+          )
+          .fromTo(
+            shutterEnd,
+            { x: 0, xPercent: 0 },
+            { xPercent: 100, duration: shutter.duration, ease: shutter.ease },
+            shutter.at,
+          )
+          .fromTo(cue, { opacity: 0 }, { opacity: 1, duration: fade.duration, ease: fade.ease }, HERO_INTRO.cueAt);
+      });
+
+      return () => mm.revert();
+    },
+    { scope: rootRef, dependencies: [revealed] },
+  );
 
   useGSAP(
     () => {
@@ -114,12 +191,12 @@ export default function Hero({ content }: HeroProps) {
       </div>
 
       <h1 id={titleId} className="hero__name">
-        <TechText {...NAME_TEXT} className="hero__name-line" text={name.first.toUpperCase()} />{" "}
-        <TechText
-          {...NAME_TEXT}
-          className="hero__name-line hero__name-line--offset"
-          text={name.last.toUpperCase()}
-        />
+        <span className="hero__name-line">
+          <TechText {...NAME_TEXT} className="hero__name-text" text={name.first.toUpperCase()} />
+        </span>{" "}
+        <span className="hero__name-line hero__name-line--offset">
+          <TechText {...NAME_TEXT} className="hero__name-text" text={name.last.toUpperCase()} />
+        </span>
       </h1>
 
       <p className="hero__statement">{statement}</p>
@@ -139,6 +216,8 @@ export default function Hero({ content }: HeroProps) {
             />
           </Suspense>
         </ErrorBoundary>
+        <span className="hero__visual-shutter hero__visual-shutter--start" aria-hidden="true" />
+        <span className="hero__visual-shutter hero__visual-shutter--end" aria-hidden="true" />
       </div>
 
       <div ref={cueRef} className="hero__scroll" aria-hidden="true">

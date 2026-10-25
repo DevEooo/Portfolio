@@ -12,9 +12,9 @@ function App() {
 
   return(
     <>
-      <SiteHeader content={siteHeaderContent} inert={isPreloading}/>
+      <SiteHeader content={siteHeaderContent} inert={isPreloading} revealed={!isPreloading}/>
       <main inert={isPreloading}>
-        <Hero content={heroContent}/>
+        <Hero content={heroContent} revealed={!isPreloading}/>
       </main>
 
       {isPreloading && (

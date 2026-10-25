@@ -95,15 +95,22 @@
   font-size: var(--hero-name-size);
 }
 
-.hero__name .hero__name-line {
+.hero__name-line {
+  display: block;
   width: calc(100% + var(--hero-name-bleed));
   height: var(--hero-name-box);
   margin-inline-start: calc(var(--hero-name-bleed) * -1);
+  overflow: hidden;
+  overflow: clip;
 }
 
-.hero__name .hero__name-line--offset {
+.hero__name-line--offset {
   width: calc(100% + var(--hero-name-bleed) - var(--hero-name-offset));
   margin-inline-start: calc(var(--hero-name-offset) - var(--hero-name-bleed));
+}
+
+.hero__name-text {
+  will-change: transform;
 }
 
 .hero__statement {
@@ -132,7 +139,29 @@
   inset: 0;
 }
 
+.hero__visual-shutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: var(--hero-bg);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero__visual-shutter--start {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.hero__visual-shutter--end {
+  right: 0;
+  transform: translateX(100%);
+}
+
 .hero__visual-fallback {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;

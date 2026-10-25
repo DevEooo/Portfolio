@@ -31,21 +31,22 @@ const MOTION = {
   softCap: 0.9,
   pollInterval: 0.1,
   settle: 0.25,
-  readyHold: 0.15,
-  exit: 0.3,
-  exitStagger: 0.05,
+  readyHold: 0.25,
+  exit: 0.4,
+  exitStagger: 0.06,
   exitShift: 12,
-  rotate: 0.45,
-  rotateOverlap: 0.15,
-  wipe: 0.5,
-  wipeOverlap: 0.1,
+  rotate: 0.8,
+  rotateOverlap: 0.2,
+  wipeOverlap: 0.08,
+  wipe: 0.7,
   overscan: 1.05,
   skipTimeScale: 4,
   ease: {
     creep: "power2.out",
     settle: "power2.out",
     exit: "power2.out",
-    transition: "power4.inOut",
+    rotate: "power2.inOut",
+    wipe: "power2.in",
   },
 } as const;
 
@@ -212,12 +213,12 @@ export default function Preloader({
             )
             .to(
               line,
-              { rotation: 90, scaleX: coverScale, duration: MOTION.rotate, ease: MOTION.ease.transition },
+              { rotation: 90, scaleX: coverScale, duration: MOTION.rotate, ease: MOTION.ease.rotate },
               `-=${MOTION.rotateOverlap}`,
             )
             .to(
               line,
-              { scaleY: wipeScale, duration: MOTION.wipe, ease: MOTION.ease.transition },
+              { scaleY: wipeScale, duration: MOTION.wipe, ease: MOTION.ease.wipe },
               `-=${MOTION.wipeOverlap}`,
             )
             .timeScale(speed);
@@ -251,23 +252,23 @@ export default function Preloader({
 
   return (
     <div ref={rootRef} className="preloader">
-      <p role="status" className="preloader-sr-only">
+      <p role="status" className="preloader__sr-only">
         {content.srLabel}
       </p>
-      <div aria-hidden="true" className="preloader-stage">
-        <div className="preloader-counter-wrap">
-          <span ref={counterRef} className="preloader-counter" />
+      <div aria-hidden="true" className="preloader__stage">
+        <div className="preloader__counter-wrap">
+          <span ref={counterRef} className="preloader__counter" />
         </div>
-        <div ref={lineRef} className="preloader-line" />
-        <div className="preloader-footer">
-          <p ref={identityRef} className="preloader-identity">
+        <div ref={lineRef} className="preloader__line" />
+        <div className="preloader__footer">
+          <p ref={identityRef} className="preloader__identity">
             {content.identity.map((line) => (
-              <span key={line} className="preloader-identity-line">
+              <span key={line} className="preloader__identity-line">
                 {line}
               </span>
             ))}
           </p>
-          <p ref={statusRef} className="preloader-status">
+          <p ref={statusRef} className="preloader__status">
             {isLoaded ? content.status.ready : content.status.loading}
           </p>
         </div>
