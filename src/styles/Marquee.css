@@ -1,0 +1,31 @@
+.marquee {
+  --marquee-bg: var(--void, #141616);
+  --marquee-line: var(--line, #2a2f2f);
+  --marquee-text: var(--text, #f0f0f0);
+
+  --marquee-font: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  --marquee-text-size: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  --marquee-loop-ratio: 40;
+  --marquee-word-gap: 0.6em;
+
+  --marquee-border: 1px;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  overflow: clip;
+  border-block: var(--marquee-border) solid var(--marquee-line);
+  background: var(--marquee-bg);
+  color: var(--marquee-text);
+}
+
+.marquee > * {
+  flex: none;
+  width: max(100%, calc(var(--marquee-text-size) * var(--marquee-loop-ratio)));
+}
+
+.marquee__text {
+  font-family: var(--marquee-font);
+  word-spacing: var(--marquee-word-gap);
+}
