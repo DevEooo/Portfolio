@@ -44,3 +44,8 @@ export type MarqueeContent = {
     separator: string;
   };
 };
+
+export type GreetingContent = {
+  label: string;
+  body: string;
+};
