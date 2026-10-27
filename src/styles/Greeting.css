@@ -18,6 +18,11 @@
   --greeting-accent: var(--azure-light, #4da3ff);
 
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
   padding: var(--greeting-space-block) var(--greeting-gutter);
   background: var(--greeting-bg);
   color: var(--greeting-text);
