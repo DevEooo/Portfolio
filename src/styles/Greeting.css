@@ -1,0 +1,59 @@
+.greeting {
+  --greeting-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
+  --greeting-space-block: clamp(6rem, 3rem + 8vw, 12rem);
+  --greeting-label-gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+  --greeting-measure: 26em;
+
+  --greeting-font-display: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  --greeting-font-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --greeting-label-size: 0.75rem;
+  --greeting-label-tracking: 0.04em;
+  --greeting-body-size: clamp(1.75rem, 1rem + 2.4vw, 3rem);
+  --greeting-body-weight: 400;
+  --greeting-body-leading: 1.2;
+  --greeting-body-tracking: -0.02em;
+
+  --greeting-bg: var(--void, #141616);
+  --greeting-text: var(--text, #f0f0f0);
+  --greeting-accent: var(--azure-light, #4da3ff);
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: var(--greeting-space-block) var(--greeting-gutter);
+  background: var(--greeting-bg);
+  color: var(--greeting-text);
+}
+
+.greeting__label {
+  margin: 0 0 var(--greeting-label-gap);
+  font-family: var(--greeting-font-mono);
+  font-size: var(--greeting-label-size);
+  font-weight: 400;
+  letter-spacing: var(--greeting-label-tracking);
+  color: var(--greeting-accent);
+}
+
+.greeting__label::before {
+  content: "[\00a0";
+  content: "[\00a0" / "";
+}
+
+.greeting__label::after {
+  content: "\00a0]";
+  content: "\00a0]" / "";
+}
+
+.greeting__body {
+  max-inline-size: var(--greeting-measure);
+  margin: 0;
+  font-family: var(--greeting-font-display);
+  font-size: var(--greeting-body-size);
+  font-weight: var(--greeting-body-weight);
+  line-height: var(--greeting-body-leading);
+  letter-spacing: var(--greeting-body-tracking);
+  text-wrap: pretty;
+}

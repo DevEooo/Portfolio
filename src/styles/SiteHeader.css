@@ -2,6 +2,7 @@
   --site-header-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
   --site-header-block: var(--site-header-height, 4rem);
   --site-header-z: var(--z-header, 10);
+  --site-header-bg: var(--void, #141616);
   --site-header-text: var(--text, #f0f0f0);
   --site-header-muted: var(--text-muted, #8a9393);
   --site-header-accent: var(--azure-light, #4da3ff);
@@ -14,7 +15,7 @@
   --site-header-duration: var(--duration-fast, 200ms);
 
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   inset-inline: 0;
   top: 0;
   z-index: var(--site-header-z);
@@ -28,6 +29,7 @@
   letter-spacing: var(--site-header-tracking);
   text-transform: uppercase;
   color: var(--site-header-text);
+  background: var(--site-header-bg);
 }
 
 .site-header__logo,

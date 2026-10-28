@@ -6,9 +6,14 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
   --z-preloader: 10000; /* above the stairs transition (9999) */
+  --z-cursor: 10001;
 }
 
 body { margin: 0; background: var(--void); }
 
+html { scrollbar-width: none; }               /* Firefox, Chrome 121+ */
+html::-webkit-scrollbar { display: none; }    /* older Chrome, Safari, Edge */
+
 ::selection { background: var(--azure-dim); color: var(--text); }
 :focus-visible { outline: 2px solid var(--azure); outline-offset: 3px; }
+

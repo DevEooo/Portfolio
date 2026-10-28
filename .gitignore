@@ -26,3 +26,23 @@ dist-ssr
 # Agents 
 .agents/skills
 .claude/skills
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Build & tool caches
+*.tsbuildinfo
+.eslintcache
+.vite
+coverage
+
+# OS files (Windows / OneDrive)
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Agent local settings
+.claude/settings.local.json

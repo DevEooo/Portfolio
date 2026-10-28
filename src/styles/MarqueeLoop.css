@@ -1,0 +1,16 @@
+.curved-loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop__svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  line-height: 1;
+  text-transform: uppercase;
+  fill: currentColor;
+  user-select: none;
+}

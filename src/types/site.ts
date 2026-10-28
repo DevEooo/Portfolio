@@ -37,3 +37,15 @@ export type HeroContent = {
   };
   scrollCue: string;
 };
+
+export type MarqueeContent = {
+  list: {
+    words: string;
+    separator: string;
+  };
+};
+
+export type GreetingContent = {
+  label: string;
+  body: string;
+};
