@@ -1,0 +1,28 @@
+Copyright (c) 2026 Herald Panji. All rights reserved.
+
+This repository and everything in it, including the source code, designs,
+layouts, animations, graphics, logos, images, and written content (the
+"Work"), is the property of Herald Panji and is protected by copyright law.
+
+The Work is made publicly visible for the sole purpose of letting people
+view it as a portfolio. No license is granted to use it in any other way.
+Without prior written permission from the copyright holder, you may not:
+
+  - copy, reproduce, or republish the Work, in whole or in part;
+  - modify it, adapt it, or create derivative works from it;
+  - distribute, sublicense, sell, or host it, including as a template or
+    as your own portfolio;
+  - use the Work, or any part of it, in another project, commercial or
+    non-commercial.
+
+Viewing the source on GitHub, and forking it within GitHub as that
+platform's Terms of Service allow, does not grant any of the rights above.
+
+Third-party libraries listed in package.json remain under their own
+licenses and are not covered by this notice.
+
+For permission requests, contact: heralddpanji@gmail.com
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY ARISING FROM THE WORK OR ITS USE.
