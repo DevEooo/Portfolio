@@ -1,0 +1,48 @@
+.cursor {
+  --cursor-dot-size: 0.375rem;
+  --cursor-ring-size: 2.5rem;
+  --cursor-ring-stroke: 1px;
+
+  --cursor-dot-color: var(--azure, #007fff);
+  --cursor-ring-color: var(--line-strong, #687171);
+
+  --cursor-z: var(--z-cursor, 10001);
+
+  position: fixed;
+  inset: 0;
+  z-index: var(--cursor-z);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: var(--cursor-dot-size);
+  height: var(--cursor-dot-size);
+  background: var(--cursor-dot-color);
+}
+
+.cursor__ring {
+  width: var(--cursor-ring-size);
+  height: var(--cursor-ring-size);
+  border: var(--cursor-ring-stroke) solid var(--cursor-ring-color);
+}
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor :is(input, textarea, select, [contenteditable]:not([contenteditable="false"])) {
+  cursor: auto !important;
+}

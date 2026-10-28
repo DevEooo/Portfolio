@@ -6,6 +6,7 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
   --z-preloader: 10000; /* above the stairs transition (9999) */
+  --z-cursor: 10001;
 }
 
 body { margin: 0; background: var(--void); }
