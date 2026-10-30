@@ -1,0 +1,116 @@
+.work-intro {
+  --work-intro-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
+  --work-intro-scroll: 1.8;
+
+  --work-intro-font: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  --work-intro-weight: 600;
+  --work-intro-line-em: 10.4;
+  --work-intro-size-max: 13rem;
+  --work-intro-tracking: -0.035em;
+  --work-intro-gap: 0.2em;
+
+  --work-intro-photo-height: 1.15em;
+  --work-intro-photo-ratio: 4 / 3;
+
+  --work-intro-bg: var(--void, #141616);
+  --work-intro-text: var(--text, #f0f0f0);
+  --work-intro-surface: var(--surface, #1c1f1f);
+  --work-intro-muted: var(--text-muted, #8a9393);
+  --work-intro-label-font: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --work-intro-label-size: 0.625rem;
+
+  box-sizing: border-box;
+  position: relative;
+  height: calc(100svh * (1 + var(--work-intro-scroll)));
+  background: var(--work-intro-bg);
+  color: var(--work-intro-text);
+}
+
+.work-intro__stage {
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  height: 100svh;
+  display: grid;
+  align-content: center;
+  padding-inline: var(--work-intro-gutter);
+  overflow: hidden;
+  overflow: clip;
+}
+
+.work-intro__line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--work-intro-gap);
+  margin: 0;
+  font-family: var(--work-intro-font);
+  font-weight: var(--work-intro-weight);
+  font-size: min(calc((100vw - 2 * var(--work-intro-gutter)) / var(--work-intro-line-em)), var(--work-intro-size-max));
+  line-height: 0.9;
+  letter-spacing: var(--work-intro-tracking);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.work-intro__word {
+  flex: none;
+  display: block;
+  will-change: transform;
+}
+
+.work-intro__photo {
+  flex: none;
+  position: relative;
+  height: var(--work-intro-photo-height);
+  aspect-ratio: var(--work-intro-photo-ratio);
+  overflow: hidden;
+  background: var(--work-intro-surface);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+.work-intro__inner {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+.work-intro__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-intro__img + .work-intro__img {
+  opacity: 0;
+}
+
+.work-intro__placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.5rem;
+  font-family: var(--work-intro-label-font);
+  font-size: var(--work-intro-label-size);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-align: center;
+  white-space: normal;
+  color: var(--work-intro-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-intro {
+    height: auto;
+  }
+
+  .work-intro__stage {
+    position: relative;
+  }
+}

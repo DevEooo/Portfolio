@@ -2,7 +2,7 @@
   --site-header-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
   --site-header-block: var(--site-header-height, 4rem);
   --site-header-z: var(--z-header, 10);
-  --site-header-bg: var(--void, #141616);
+  --site-header-bg: transparent;
   --site-header-text: var(--text, #f0f0f0);
   --site-header-muted: var(--text-muted, #8a9393);
   --site-header-font: var(--font-mono, "Space Mono", ui-monospace, monospace);

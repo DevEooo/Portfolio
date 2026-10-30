@@ -1,0 +1,51 @@
+.selected-work {
+  --selected-work-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
+  --selected-work-space-top: clamp(2rem, 1rem + 3vw, 4rem);
+  --selected-work-space-bottom: clamp(3rem, 2rem + 4vw, 6rem);
+  --selected-work-head-gap: 1.25rem;
+  --selected-work-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --selected-work-label-size: 0.75rem;
+  --selected-work-tracking: 0.04em;
+  --selected-work-bg: var(--void, #141616);
+  --selected-work-muted: var(--text-muted, #8a9393);
+
+  background: var(--selected-work-bg);
+}
+
+.selected-work__list {
+  box-sizing: border-box;
+  padding: var(--selected-work-space-top) var(--selected-work-gutter) var(--selected-work-space-bottom);
+}
+
+.selected-work__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: var(--selected-work-head-gap);
+  font-family: var(--selected-work-mono);
+  font-size: var(--selected-work-label-size);
+  letter-spacing: var(--selected-work-tracking);
+  text-transform: uppercase;
+  color: var(--selected-work-muted);
+}
+
+.selected-work__label,
+.selected-work__hint {
+  margin: 0;
+}
+
+.selected-work__count::before {
+  content: "(\00a0";
+  content: "(\00a0" / "";
+}
+
+.selected-work__count::after {
+  content: "\00a0)\00a0—";
+  content: "\00a0)\00a0—" / "";
+}
+
+@media (hover: none) {
+  .selected-work__hint {
+    display: none;
+  }
+}

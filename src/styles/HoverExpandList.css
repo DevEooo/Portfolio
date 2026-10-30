@@ -1,0 +1,188 @@
+.hover-expand {
+  --hover-expand-collapsed: 4.25;
+  --hover-expand-expanded: 20;
+  --hover-expand-pad-x: 1.25rem;
+  --hover-expand-pad-bottom: 1rem;
+
+  --hover-expand-font: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  --hover-expand-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --hover-expand-label-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  --hover-expand-small: 0.75rem;
+  --hover-expand-description-size: 0.875rem;
+
+  --hover-expand-text: var(--text, #f0f0f0);
+  --hover-expand-body: var(--text-body, #b8bfbf);
+  --hover-expand-muted: var(--text-muted, #8a9393);
+  --hover-expand-line: var(--line, #2a2f2f);
+  --hover-expand-surface: var(--surface, #1c1f1f);
+  --hover-expand-focus: var(--azure-light, #4da3ff);
+  --hover-expand-shade: linear-gradient(to top, rgb(0 0 0 / 0.7), rgb(0 0 0 / 0.2) 50%, rgb(0 0 0 / 0.1));
+
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0 0 calc((var(--hover-expand-expanded) - var(--hover-expand-collapsed)) * 1rem);
+  list-style: none;
+  color: var(--hover-expand-text);
+}
+
+.hover-expand__row {
+  position: relative;
+  box-sizing: border-box;
+  height: calc(var(--hover-expand-collapsed) * 1rem);
+  border-top: 1px solid var(--hover-expand-line);
+  will-change: transform, opacity;
+}
+
+.hover-expand__link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.hover-expand__link:focus-visible {
+  outline: 2px solid var(--hover-expand-focus);
+  outline-offset: -2px;
+}
+
+.hover-expand__hit {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 0;
+}
+
+.hover-expand__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--hover-expand-expanded) * 1rem);
+  overflow: hidden;
+  transform-origin: 50% 0;
+  transform: scaleY(calc(var(--hover-expand-collapsed) / var(--hover-expand-expanded)));
+  pointer-events: none;
+}
+
+.hover-expand__inner {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 0;
+  transform: scaleY(calc(var(--hover-expand-expanded) / var(--hover-expand-collapsed)));
+}
+
+.hover-expand__media {
+  position: absolute;
+  inset: 0;
+  background: var(--hover-expand-surface);
+  opacity: 0;
+  transform: scale(1.06);
+  will-change: transform, opacity;
+}
+
+.hover-expand__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hover-expand-shade);
+}
+
+.hover-expand__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hover-expand__placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--hover-expand-mono);
+  font-size: var(--hover-expand-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--hover-expand-muted);
+}
+
+.hover-expand__text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--hover-expand-collapsed) * 1rem);
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 var(--hover-expand-pad-x) var(--hover-expand-pad-bottom);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hover-expand__main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.hover-expand__index {
+  flex: none;
+  font-family: var(--hover-expand-mono);
+  font-size: var(--hover-expand-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--hover-expand-muted);
+}
+
+.hover-expand__label {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--hover-expand-font);
+  font-size: var(--hover-expand-label-size);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hover-expand__description {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--hover-expand-description-size);
+  color: var(--hover-expand-body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transform: translateX(-0.5rem);
+}
+
+.hover-expand__description::before {
+  content: "— ";
+  content: "— " / "";
+}
+
+.hover-expand__sublabel {
+  flex: none;
+  font-family: var(--hover-expand-mono);
+  font-size: var(--hover-expand-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hover-expand-muted);
+}
+
+.hover-expand__end {
+  height: 0;
+  border-top: 1px solid var(--hover-expand-line);
+  will-change: transform;
+}
+
+@media (max-width: 40rem) {
+  .hover-expand__description {
+    display: none;
+  }
+}

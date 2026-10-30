@@ -49,3 +49,30 @@ export type GreetingContent = {
   label: string;
   body: string;
 };
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type Project = {
+  id: string;
+  title: string;
+  year: string;
+  category: string;
+  description: string;
+  href: string;
+  image?: ProjectImage;
+};
+
+export type SelectedWorkContent = {
+  title: { first: string; last: string };
+  listLabel: string;
+  hint: string;
+  cursorAction: string;
+  metaSeparator: string;
+  photoPlaceholder: string;
+  projects: readonly Project[];
+};
