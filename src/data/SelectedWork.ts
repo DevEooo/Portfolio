@@ -4,7 +4,6 @@ export const selectedWorkContent = {
   title: { first: "Selected", last: "Work" },
   listLabel: "Selected Work",
   viewAll: { label: "View all", href: "/work" },
-  cursorAction: "View project",
   metaSeparator: " · ",
   photoPlaceholder: "TODO: project photo",
   projects: [

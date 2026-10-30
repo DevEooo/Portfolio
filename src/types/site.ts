@@ -71,7 +71,6 @@ export type SelectedWorkContent = {
   title: { first: string; last: string };
   listLabel: string;
   viewAll: { label: string; href: string };
-  cursorAction: string;
   metaSeparator: string;
   photoPlaceholder: string;
   projects: readonly Project[];

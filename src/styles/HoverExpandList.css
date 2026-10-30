@@ -124,6 +124,7 @@
 }
 
 .hover-expand__main {
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
@@ -139,6 +140,7 @@
 }
 
 .hover-expand__label {
+  flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   font-family: var(--hover-expand-font);
@@ -150,7 +152,9 @@
   text-overflow: ellipsis;
 }
 
+/* Zero basis: the hidden description only takes space the label leaves over, so it never squeezes the title. */
 .hover-expand__description {
+  flex: 1 1 0%;
   min-width: 0;
   overflow: hidden;
   font-family: var(--hover-expand-sans);

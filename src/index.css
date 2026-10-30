@@ -6,6 +6,7 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
   --font-sans: "Inter", system-ui, sans-serif;
+  --gutter: clamp(1.25rem, 0.5rem + 3.5vw, 4.5rem); /* page-wide inline margin, read by every section */
   --z-preloader: 10000; /* above the stairs transition (9999) */
   --z-cursor: 10001;
 }

@@ -4,7 +4,6 @@ import HoverExpandList, { type HoverExpandItem } from "../common/HoverExpandList
 import WorkIntro from "./WorkIntro.tsx";
 import "../../styles/SelectedWork.css";
 
-const CURSOR_LABEL_JOIN = " • ";
 const INDEX_DIGITS = 2;
 
 const padIndex = (value: number): string => String(value).padStart(INDEX_DIGITS, "0");
@@ -25,7 +24,7 @@ export default function SelectedWork({ content }: SelectedWorkProps) {
     description: project.description,
     href: project.href,
     image: project.image,
-    cursorLabel: `${content.cursorAction}${CURSOR_LABEL_JOIN}${project.category}`,
+    cursorLabel: project.title,
   }));
   const photos = projects.flatMap((project) => (project.image ? [{ id: project.id, image: project.image }] : []));
 

@@ -8,7 +8,7 @@
   --greeting-font-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
   --greeting-label-size: 0.75rem;
   --greeting-label-tracking: 0.04em;
-  --greeting-body-size: clamp(1.75rem, 1rem + 2.4vw, 3rem);
+  --greeting-body-size: clamp(1.75rem, 0.9rem + 2.6vw, 4rem);
   --greeting-body-weight: 400;
   --greeting-body-leading: 1.2;
   --greeting-body-tracking: -0.02em;
