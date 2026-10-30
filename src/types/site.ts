@@ -70,7 +70,7 @@ export type Project = {
 export type SelectedWorkContent = {
   title: { first: string; last: string };
   listLabel: string;
-  hint: string;
+  viewAll: { label: string; href: string };
   cursorAction: string;
   metaSeparator: string;
   photoPlaceholder: string;

@@ -36,9 +36,15 @@ export default function SelectedWork({ content }: SelectedWorkProps) {
       <div className="selected-work__list">
         <div className="selected-work__head">
           <p className="selected-work__label">
-            <span className="selected-work__count">{padIndex(projects.length)}</span> {content.listLabel}
+            <span className="selected-work__count">{padIndex(projects.length)}</span>{" "}
+            <strong className="selected-work__label-text">{content.listLabel}</strong>
           </p>
-          <p className="selected-work__hint">{content.hint}</p>
+          <a className="selected-work__view-all" href={content.viewAll.href}>
+            {content.viewAll.label}
+            <span className="selected-work__arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
         </div>
         <HoverExpandList items={items} placeholder={content.photoPlaceholder} />
       </div>

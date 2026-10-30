@@ -1,15 +1,14 @@
 .hover-expand {
-  --hover-expand-collapsed: 4.25;
-  --hover-expand-expanded: 20;
-  --hover-expand-pad-x: 1.25rem;
-  --hover-expand-pad-bottom: 1rem;
+  --hover-expand-collapsed: 6.5;
+  --hover-expand-expanded: 28;
+  --hover-expand-pad-x: clamp(1.25rem, 0.75rem + 1.5vw, 2rem);
 
   --hover-expand-font: var(--font-display, "Space Grotesk", system-ui, sans-serif);
-  --hover-expand-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
-  --hover-expand-label-size: clamp(1.1rem, 2.2vw, 1.5rem);
-  --hover-expand-small: 0.75rem;
-  --hover-expand-description-size: 0.875rem;
+  --hover-expand-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);  --hover-expand-label-size: clamp(1.5rem, 0.9rem + 2.8vw, 3.25rem);
+  --hover-expand-small: 0.8125rem;
+  --hover-expand-description-size: 1rem;
 
+  --hover-expand-sans: var(--font-sans, "Inter", system-ui, sans-serif);
   --hover-expand-text: var(--text, #f0f0f0);
   --hover-expand-body: var(--text-body, #b8bfbf);
   --hover-expand-muted: var(--text-muted, #8a9393);
@@ -116,18 +115,18 @@
   height: calc(var(--hover-expand-collapsed) * 1rem);
   box-sizing: border-box;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0 var(--hover-expand-pad-x) var(--hover-expand-pad-bottom);
+  padding: 0 var(--hover-expand-pad-x);
   pointer-events: none;
   will-change: transform;
 }
 
 .hover-expand__main {
   display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  align-items: center;
+  gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
   min-width: 0;
 }
 
@@ -145,6 +144,7 @@
   font-family: var(--hover-expand-font);
   font-size: var(--hover-expand-label-size);
   font-weight: 600;
+  line-height: 1.1;
   letter-spacing: -0.015em;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -153,6 +153,7 @@
 .hover-expand__description {
   min-width: 0;
   overflow: hidden;
+  font-family: var(--hover-expand-sans);
   font-size: var(--hover-expand-description-size);
   color: var(--hover-expand-body);
   white-space: nowrap;
@@ -181,7 +182,18 @@
   will-change: transform;
 }
 
+@media (max-width: 63.99rem) {
+  .hover-expand__sublabel {
+    display: none;
+  }
+}
+
 @media (max-width: 40rem) {
+  .hover-expand {
+    --hover-expand-collapsed: 5;
+    --hover-expand-expanded: 20;
+  }
+
   .hover-expand__description {
     display: none;
   }

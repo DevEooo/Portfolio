@@ -5,6 +5,7 @@
   --azure: #007FFF;  --azure-light: #4DA3FF; --azure-dim: rgb(0 127 255 / .14);
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
   --z-preloader: 10000; /* above the stairs transition (9999) */
   --z-cursor: 10001;
 }
