@@ -107,7 +107,8 @@ export default function HoverExpandList({ items, placeholder }: HoverExpandListP
           duration: time(description.duration),
           delay: isOpen ? time(description.delay) : 0,
           ease: description.ease,
-          overwrite: "auto",
+          // "auto" skips tweens still waiting on their delay, so a quick hover-out would let the delayed fade-in win.
+          overwrite: true,
         });
       });
 
