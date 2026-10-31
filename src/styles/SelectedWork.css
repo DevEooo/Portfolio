@@ -76,6 +76,12 @@
   text-decoration: none;
 }
 
+.selected-work__arrow {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
 .selected-work__view-all::before {
   content: "";
   position: absolute;

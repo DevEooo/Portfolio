@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { SiteFooterContent } from "../../types/site.ts";
 import { WORDMARK } from "./wordmark.ts";
 import "../../styles/SiteFooter.css";
@@ -129,7 +130,9 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {link.label} <span className="site-footer__sr-only">{content.newTabLabel}</span>
+                          {link.label}
+                          <ArrowUpRight className="site-footer__link-icon" aria-hidden="true" focusable="false" />
+                          <span className="site-footer__sr-only"> {content.newTabLabel}</span>
                         </a>
                       ) : (
                         <a className="site-footer__link" href={link.href}>
@@ -158,6 +161,7 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
             </span>
             <a className="site-footer__cta" href={cta.href}>
               {cta.label}
+              <ArrowRight className="site-footer__cta-icon" aria-hidden="true" focusable="false" />
             </a>
           </div>
         </div>

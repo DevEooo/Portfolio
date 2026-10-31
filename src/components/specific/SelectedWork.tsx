@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { ArrowRight } from "lucide-react";
 import type { SelectedWorkContent } from "../../types/site.ts";
 import HoverExpandList, { type HoverExpandItem } from "../common/HoverExpandList.tsx";
 import WorkIntro from "./WorkIntro.tsx";
@@ -40,9 +41,7 @@ export default function SelectedWork({ content }: SelectedWorkProps) {
           </p>
           <a className="selected-work__view-all" href={content.viewAll.href}>
             {content.viewAll.label}
-            <span className="selected-work__arrow" aria-hidden="true">
-              →
-            </span>
+            <ArrowRight className="selected-work__arrow" aria-hidden="true" focusable="false" />
           </a>
         </div>
         <HoverExpandList items={items} placeholder={content.photoPlaceholder} />
