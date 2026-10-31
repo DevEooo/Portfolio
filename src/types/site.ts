@@ -75,3 +75,37 @@ export type SelectedWorkContent = {
   photoPlaceholder: string;
   projects: readonly Project[];
 };
+
+export type FooterLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+export type FooterLinkGroup = {
+  label: string;
+  links: readonly FooterLink[];
+};
+
+export type SiteFooterContent = {
+  headline: {
+    lead: string;
+    accent: string;
+  };
+  body: string;
+  cta: { label: string; href: string };
+  email: {
+    address: string;
+    copyLabel: string;
+    copiedLabel: string;
+    failedLabel: string;
+  };
+  linksLabel: string;
+  groups: readonly FooterLinkGroup[];
+  newTabLabel: string;
+  copyright: string;
+  backToTop: {
+    label: string;
+    targetId: string;
+  };
+};

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 // import StairsReveal from './components/common/Transition.tsx'
 import SiteHeader from './components/common/SiteHeader.tsx'
+import SiteFooter from './components/common/SiteFooter.tsx'
 import Cursor from './components/common/Cursor.tsx'
 import Preloader from './components/specific/Preloader.tsx'
 import Hero from './components/specific/Hero.tsx'
@@ -13,6 +14,7 @@ import { heroContent } from './data/Hero.ts'
 import { marqueeContent } from './data/Marquee.ts'
 import { greetingContent } from './data/Greeting.ts'
 import { selectedWorkContent } from './data/SelectedWork.ts'
+import { siteFooterContent } from './data/SiteFooter.ts'
 
 function App() {
   const [isPreloading, setIsPreloading] = useState(true)
@@ -21,12 +23,13 @@ function App() {
     <>
       <Cursor/>
       <SiteHeader content={siteHeaderContent} inert={isPreloading} revealed={!isPreloading}/>
-      <main inert={isPreloading}>
+      <main id="main" tabIndex={-1} inert={isPreloading}>
         <Hero content={heroContent} revealed={!isPreloading}/>
         <Marquee content={marqueeContent}/>
         <Greeting content={greetingContent}/>
         <SelectedWork content={selectedWorkContent}/>
       </main>
+      <SiteFooter content={siteFooterContent} inert={isPreloading}/>
 
       {isPreloading && (
         <Preloader content={preloaderContent} onComplete={() => setIsPreloading(false)}/>
