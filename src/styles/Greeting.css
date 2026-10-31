@@ -38,13 +38,13 @@
 }
 
 .greeting__label::before {
-  content: "[\00a0";
-  content: "[\00a0" / "";
+  content: "{\00a0";
+  content: "{\00a0" / "";
 }
 
 .greeting__label::after {
-  content: "\00a0]";
-  content: "\00a0]" / "";
+  content: "\00a0}";
+  content: "\00a0}" / "";
 }
 
 .greeting__body {

@@ -100,8 +100,8 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
     document.getElementById(backToTop.targetId)?.focus({ preventScroll: true });
   };
 
-  const copyText =
-    copyState === "copied" ? email.copiedLabel : copyState === "failed" ? email.failedLabel : email.copyLabel;
+  const copyStatus =
+    copyState === "copied" ? email.copiedLabel : copyState === "failed" ? email.failedLabel : "";
 
   return (
     <footer className="site-footer" aria-labelledby={titleId} inert={inert}>
@@ -144,14 +144,17 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
           </nav>
 
           <div className="site-footer__contact">
-            <a className="site-footer__email" href={`mailto:${email.address}`}>
+            <button
+              type="button"
+              className="site-footer__email"
+              title={email.copyLabel}
+              onClick={() => void copyEmail()}
+            >
               {email.address}
-            </a>
-            <button type="button" className="site-footer__copy" onClick={() => void copyEmail()}>
-              {copyText}
+              <span className="site-footer__sr-only"> {email.copyLabel}</span>
             </button>
-            <span className="site-footer__sr-only" role="status">
-              {copyState === "idle" ? "" : copyText}
+            <span className="site-footer__copy-status" role="status">
+              {copyStatus}
             </span>
             <a className="site-footer__cta" href={cta.href}>
               {cta.label}

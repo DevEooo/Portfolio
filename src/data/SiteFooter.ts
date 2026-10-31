@@ -6,7 +6,7 @@ export const siteFooterContent = {
   cta: { label: "Start a conversation", href: "/contact" },
   email: {
     address: "heralddpanji@gmail.com",
-    copyLabel: "Copy",
+    copyLabel: "Copy to clipboard",
     copiedLabel: "Copied",
     failedLabel: "Couldn’t copy",
   },
