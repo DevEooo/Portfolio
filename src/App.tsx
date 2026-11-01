@@ -8,12 +8,14 @@ import Hero from './components/specific/Hero.tsx'
 import Marquee from './components/common/Marquee.tsx'
 import Greeting from './components/specific/Greeting.tsx'
 import SelectedWork from './components/specific/SelectedWork.tsx'
+import Expertise from './components/specific/Expertise.tsx'
 import { preloaderContent } from './data/Preloader.ts'
 import { siteHeaderContent } from './data/SiteHeader.ts'
 import { heroContent } from './data/Hero.ts'
 import { marqueeContent } from './data/Marquee.ts'
 import { greetingContent } from './data/Greeting.ts'
 import { selectedWorkContent } from './data/SelectedWork.ts'
+import { expertiseContent } from './data/Expertise.ts'
 import { siteFooterContent } from './data/SiteFooter.ts'
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
         <Marquee content={marqueeContent}/>
         <Greeting content={greetingContent}/>
         <SelectedWork content={selectedWorkContent}/>
+        <Expertise content={expertiseContent}/>
       </main>
       <SiteFooter content={siteFooterContent} inert={isPreloading}/>
 

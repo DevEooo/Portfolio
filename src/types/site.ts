@@ -109,3 +109,20 @@ export type SiteFooterContent = {
     targetId: string;
   };
 };
+
+export type ExpertiseService = {
+  id: string;
+  title: string;
+  description: string;
+  tools: readonly string[];
+};
+
+export type ExpertiseContent = {
+  eyebrow: { index: string; label: string };
+  title: { lead: string; accent: string };
+  toolsLabel: string;
+  usedInLabel: string;
+  listLabel: string;
+  tools: readonly string[];
+  services: readonly ExpertiseService[];
+};

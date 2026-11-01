@@ -1,0 +1,258 @@
+.expertise {
+  --expertise-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
+  --expertise-space-block: clamp(5rem, 3rem + 6vw, 9rem);
+  --expertise-column-gap: clamp(2rem, 6vw, 7rem);
+  --expertise-sticky-top: calc(var(--site-header-height, 4rem) + clamp(1rem, 0.5rem + 2vw, 2.5rem));
+  --expertise-row-space: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --expertise-number-column: 3rem;
+  --expertise-capsules-measure: 30rem;
+  --expertise-description-measure: 52ch;
+
+  --expertise-font: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  --expertise-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --expertise-title-size: clamp(2.25rem, 1.4rem + 2.8vw, 3.75rem);
+  --expertise-title-weight: 600;
+  --expertise-service-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem);
+  --expertise-label-size: 0.75rem;
+  --expertise-capsule-size: 0.875rem;
+  --expertise-tracking: 0.04em;
+
+  --expertise-bg: var(--void, #141616);
+  --expertise-text: var(--text, #f0f0f0);
+  --expertise-body: var(--text-body, #b8bfbf);
+  --expertise-muted: var(--text-muted, #8a9393);
+  --expertise-faint: var(--line-strong, #687171);
+  --expertise-line: var(--line, #2a2f2f);
+  --expertise-accent: var(--azure, #007fff);
+  --expertise-accent-text: var(--azure-light, #4da3ff);
+
+  --expertise-ease: var(--ease-out-soft, cubic-bezier(0.2, 0.8, 0.2, 1));
+  --expertise-fade: 350ms;
+  --expertise-colour: 300ms;
+  --expertise-draw: 900ms;
+  --expertise-dimmed: 0.28;
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--expertise-column-gap);
+  padding: var(--expertise-space-block) var(--expertise-gutter);
+  background: var(--expertise-bg);
+  color: var(--expertise-text);
+}
+
+.expertise__aside {
+  position: sticky;
+  top: var(--expertise-sticky-top);
+  align-self: start;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.expertise__eyebrow,
+.expertise__tools-label,
+.expertise__list-label,
+.expertise__note {
+  margin: 0;
+  font-family: var(--expertise-mono);
+  font-size: var(--expertise-label-size);
+  font-weight: 400;
+  letter-spacing: var(--expertise-tracking);
+  text-transform: uppercase;
+  color: var(--expertise-muted);
+}
+
+.expertise__eyebrow {
+  margin-bottom: 1rem;
+}
+
+.expertise__eyebrow::before {
+  content: "(\00a0";
+  content: "(\00a0" / "";
+}
+
+.expertise__eyebrow-index::after {
+  content: "\00a0)\00a0—\00a0";
+  content: "\00a0)\00a0—\00a0" / "";
+}
+
+.expertise__title {
+  margin: 0;
+  font-family: var(--expertise-font);
+  font-size: var(--expertise-title-size);
+  font-weight: var(--expertise-title-weight);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.expertise__title-line {
+  display: block;
+}
+
+.expertise__title-line--accent {
+  color: var(--expertise-accent);
+}
+
+.expertise__tools-label {
+  margin-bottom: 0.9rem;
+}
+
+.expertise__tools-label::before {
+  content: "(\00a0";
+  content: "(\00a0" / "";
+}
+
+.expertise__tools-label::after {
+  content: "\00a0)";
+  content: "\00a0)" / "";
+}
+
+.expertise__capsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: var(--expertise-capsules-measure);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.expertise__capsule {
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--expertise-text);
+  border-radius: 999px;
+  background: var(--expertise-bg);
+  color: var(--expertise-text);
+  font-family: var(--expertise-font);
+  font-size: var(--expertise-capsule-size);
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  transition: opacity var(--expertise-fade) var(--expertise-ease);
+}
+
+.expertise__capsules[data-filtered="true"] .expertise__capsule[data-used="false"] {
+  opacity: var(--expertise-dimmed);
+}
+
+.expertise__note {
+  min-height: 1.5em;
+  margin-top: 0.9rem;
+}
+
+.expertise__note-title {
+  color: var(--expertise-text);
+}
+
+.expertise__list-label {
+  margin-bottom: 0.9rem;
+}
+
+.expertise__services {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--expertise-line);
+}
+
+.expertise__service {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--expertise-number-column) minmax(0, 1fr);
+  gap: 0 1rem;
+  padding-block: var(--expertise-row-space);
+}
+
+.expertise__service::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--expertise-line);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--expertise-draw) var(--expertise-ease);
+}
+
+.expertise__service[data-arrived="true"]::before {
+  transform: scaleX(1);
+}
+
+.expertise__number {
+  padding-top: 0.55rem;
+  font-family: var(--expertise-mono);
+  font-size: var(--expertise-label-size);
+  font-variant-numeric: tabular-nums;
+  color: var(--expertise-muted);
+  transition: color var(--expertise-colour) var(--expertise-ease);
+}
+
+.expertise__service-title {
+  margin: 0;
+  font-family: var(--expertise-font);
+  font-size: var(--expertise-service-size);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--expertise-text);
+  transition: color var(--expertise-colour) var(--expertise-ease);
+}
+
+.expertise__service-description {
+  max-width: var(--expertise-description-measure);
+  margin: 0.9rem 0 0;
+  font-family: var(--expertise-font);
+  color: var(--expertise-body);
+  transition: color var(--expertise-colour) var(--expertise-ease);
+}
+
+.expertise__services[data-has-active="true"] .expertise__service[data-state="idle"] .expertise__service-title {
+  color: var(--expertise-muted);
+}
+
+.expertise__services[data-has-active="true"] .expertise__service[data-state="idle"] .expertise__service-description {
+  color: var(--expertise-faint);
+}
+
+.expertise__service[data-state="active"] .expertise__number {
+  color: var(--expertise-accent-text);
+}
+
+.expertise__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 54rem) {
+  .expertise {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .expertise__aside {
+    position: static;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expertise__capsule,
+  .expertise__number,
+  .expertise__service-title,
+  .expertise__service-description,
+  .expertise__service::before {
+    transition: none;
+  }
+
+  .expertise__service::before {
+    transform: scaleX(1);
+  }
+}
