@@ -1,78 +1,52 @@
-# React + TypeScript + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Herald's personal portfolio site, a single page built with React, TypeScript and Vite.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**, bundled with **Vite**
+- **GSAP** for scroll and reveal animations
+- **OGL** (WebGL) for the dithered hero image
+- **lucide-react** for icons
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project structure
 
 ```
+public/
+├── images/              Photos used on the page (hero portrait, selected work)
+└── logos/               Logo SVGs
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+src/
+├── main.tsx             Entry point, mounts <App/>
+├── App.tsx              Page layout: puts every section in order
+├── index.css            Global tokens (colors, fonts, gutter, z-index) and base styles
+│
+├── sections/            Parts of the page, one file each
+│   ├── Preloader.tsx    Intro screen, shown once per browser session
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── Greeting.tsx
+│   ├── SelectedWork.tsx
+│   ├── WorkIntro.tsx    Title and photos at the top of SelectedWork
+│   ├── Expertise.tsx
+│   └── Footer.tsx
+│
+├── components/          Reusable building blocks used inside sections
+│   ├── Cursor.tsx           Custom cursor
+│   ├── Dither.tsx           WebGL dither effect for images
+│   ├── ErrorBoundary.tsx    Shows a fallback if a child component crashes
+│   ├── HoverExpandList.tsx  Project list that expands on hover
+│   ├── Logo.tsx             "HRLD." wordmark
+│   ├── Marquee.tsx          Scrolling keyword strip
+│   ├── ScrollRevealText.tsx Text that reveals as you scroll
+│   ├── TechText.tsx         Animated canvas text for the hero name
+│   └── Transition.tsx       Page transition (not used at the moment)
+│
+├── content/             All text, links and image paths, one file per section
+├── styles/              One stylesheet per component or section
+├── types/
+│   └── site.ts          Types describing the shape of each content file
+└── lib/                 Shared non-component code
+    ├── cursorTarget.ts  Attributes linking the cursor to project rows
+    └── wordmark.ts      SVG path data for the logo (Logo and Footer)
 ```
