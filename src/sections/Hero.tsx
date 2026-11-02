@@ -1,14 +1,14 @@
 import { lazy, Suspense, useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import type { HeroContent } from "../../types/site.ts";
-import ErrorBoundary from "../common/ErrorBoundary.tsx";
-import TechText from "../common/TechText.tsx";
-import "../../styles/Hero.css";
+import type { HeroContent } from "../types/site.ts";
+import ErrorBoundary from "../components/ErrorBoundary.tsx";
+import TechText from "../components/TechText.tsx";
+import "../styles/Hero.css";
 
 gsap.registerPlugin(useGSAP);
 
-const DitherVeil = lazy(() => import("../common/Dither.tsx"));
+const Dither = lazy(() => import("../components/Dither.tsx"));
 
 const FULL_MOTION = "(prefers-reduced-motion: no-preference)";
 
@@ -206,7 +206,7 @@ export default function Hero({ content, revealed = true }: HeroProps) {
           fallback={<img className="hero__visual-fallback" src={visual.src} alt="" decoding="async" />}
         >
           <Suspense fallback={null}>
-            <DitherVeil
+            <Dither
               {...VISUAL_DITHER}
               src={visual.src}
               inkColor={visualColors.ink}

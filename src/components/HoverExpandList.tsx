@@ -1,9 +1,9 @@
 import { useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import type { ProjectImage } from "../../types/site.ts";
-import { cursorProjectTarget } from "./cursorTarget.ts";
-import "../../styles/HoverExpandList.css";
+import type { ProjectImage } from "../types/site.ts";
+import { cursorProjectTarget } from "../lib/cursorTarget.ts";
+import "../styles/HoverExpandList.css";
 
 gsap.registerPlugin(useGSAP);
 

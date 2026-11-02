@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import { Renderer, Program, Mesh, Triangle, Texture, RenderTarget } from 'ogl';
 
-import '../../styles/Dither.css';
+import '../styles/Dither.css';
 
 type Pattern = 'bayer' | 'noise' | 'atkinson' | 'floyd' | 'lines';
 type Palette = 'duotone' | 'rgb';
@@ -10,7 +10,7 @@ type Fit = 'contain' | 'cover';
 type Kernel = [number, number, number][];
 type Rgb = [number, number, number];
 
-export interface DitherVeilProps {
+export interface DitherProps {
   src?: string;
   fit?: Fit;
   pattern?: Pattern;
@@ -33,7 +33,7 @@ export interface DitherVeilProps {
   style?: CSSProperties;
 }
 
-type Settings = Required<Omit<DitherVeilProps, 'src' | 'className' | 'style'>>;
+type Settings = Required<Omit<DitherProps, 'src' | 'className' | 'style'>>;
 
 const DEFAULT_SRC = 'https://images.unsplash.com/photo-1737071371043-761e02b1ef95?q=80&w=1400&auto=format&fit=crop';
 
@@ -406,7 +406,7 @@ void main() {
 }
 `;
 
-const DitherVeil = ({
+const Dither = ({
   src = DEFAULT_SRC,
   fit = 'contain',
   pattern = 'bayer',
@@ -427,7 +427,7 @@ const DitherVeil = ({
   clickBurst = true,
   className = '',
   style
-}: DitherVeilProps) => {
+}: DitherProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<Settings | null>(null);
   const wakeRef = useRef<() => void>(() => {});
@@ -843,7 +843,7 @@ const DitherVeil = ({
     };
   }, [src]);
 
-  return <div ref={containerRef} className={`dither-veil ${className}`.trim()} style={style} />;
+  return <div ref={containerRef} className={`dither ${className}`.trim()} style={style} />;
 };
 
-export default DitherVeil;
+export default Dither;

@@ -1,9 +1,9 @@
 import type { CSSProperties, TransitionEvent } from "react";
-import "../../styles/Transition.css";
+import "../styles/Transition.css";
 
 type StaggerOrigin = "left" | "right" | "center" | "edges";
 
-interface StairsRevealProps {
+interface TransitionProps {
   revealing?: boolean;
   columns?: number;
   duration?: number;
@@ -30,7 +30,7 @@ function getStaggerStep(i: number, columns: number, origin: StaggerOrigin): numb
   }
 }
 
-export default function StairsReveal({
+export default function Transition({
   revealing = false,
   columns = 10,
   duration = 650,
@@ -41,15 +41,15 @@ export default function StairsReveal({
   zIndex = 9999,
   className = "",
   onFinish,
-}: StairsRevealProps) {
+}: TransitionProps) {
   const steps = Array.from({ length: columns }, (_, i) => getStaggerStep(i, columns, origin));
   const lastStep = Math.max(...steps);
   const lastIndex = steps.indexOf(lastStep);
 
   const rootStyle = {
-    "--stairs-color": color,
-    "--stairs-duration": `${duration}ms`,
-    "--stairs-easing": easing,
+    "--transition-color": color,
+    "--transition-duration": `${duration}ms`,
+    "--transition-easing": easing,
     zIndex,
   } as CSSProperties;
 
@@ -60,19 +60,19 @@ export default function StairsReveal({
 
   return (
     <div
-      className={`stairs${revealing ? " is-revealing" : ""} ${className}`.trim()}
+      className={`transition${revealing ? " is-revealing" : ""} ${className}`.trim()}
       style={rootStyle}
       aria-hidden="true"
     >
       {steps.map((step, i) => (
         <div
           key={i}
-          className="stairs-column"
-          style={{ "--stairs-delay": `${step * stagger}ms` } as CSSProperties}
+          className="transition-column"
+          style={{ "--transition-delay": `${step * stagger}ms` } as CSSProperties}
         >
-          <div className="stairs-block stairs-block--top" />
+          <div className="transition-block transition-block--top" />
           <div
-            className="stairs-block stairs-block--bottom"
+            className="transition-block transition-block--bottom"
             onTransitionEnd={i === lastIndex ? handleTransitionEnd : undefined}
           />
         </div>

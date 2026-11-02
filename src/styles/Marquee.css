@@ -20,6 +20,23 @@
   color: var(--marquee-text);
 }
 
+.marquee__loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.marquee__svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  line-height: 1;
+  text-transform: uppercase;
+  fill: currentColor;
+  user-select: none;
+}
+
 .marquee > * {
   flex: none;
   width: max(100%, calc(var(--marquee-text-size) * var(--marquee-loop-ratio)));

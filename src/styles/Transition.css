@@ -1,4 +1,4 @@
-.stairs {
+.transition {
   position: fixed;
   inset: 0;
   display: flex;
@@ -6,45 +6,45 @@
   overflow: hidden;
 }
 
-.stairs-column {
+.transition-column {
   position: relative;
   flex: 1 1 0;
   margin-right: -2px;
 }
 
-.stairs-column:last-child {
+.transition-column:last-child {
   margin-right: 0;
 }
 
-.stairs-block {
+.transition-block {
   position: absolute;
   left: 0;
   right: 0;
   height: 50.5%;
-  background: var(--stairs-color);
+  background: var(--transition-color);
   transform: translateY(0);
-  transition: transform var(--stairs-duration) var(--stairs-easing) var(--stairs-delay);
+  transition: transform var(--transition-duration) var(--transition-easing) var(--transition-delay);
   will-change: transform;
 }
 
-.stairs-block--top {
+.transition-block--top {
   top: 0;
 }
 
-.stairs-block--bottom {
+.transition-block--bottom {
   bottom: 0;
 }
 
-.stairs.is-revealing .stairs-block--top {
+.transition.is-revealing .transition-block--top {
   transform: translateY(-101%);
 }
 
-.stairs.is-revealing .stairs-block--bottom {
+.transition.is-revealing .transition-block--bottom {
   transform: translateY(101%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stairs-block {
+  .transition-block {
     transition-duration: 1ms;
     transition-delay: 0ms;
   }

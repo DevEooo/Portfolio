@@ -1,9 +1,9 @@
 import { useId } from "react";
 import { ArrowRight } from "lucide-react";
-import type { SelectedWorkContent } from "../../types/site.ts";
-import HoverExpandList, { type HoverExpandItem } from "../common/HoverExpandList.tsx";
+import type { SelectedWorkContent } from "../types/site.ts";
+import HoverExpandList, { type HoverExpandItem } from "../components/HoverExpandList.tsx";
 import WorkIntro from "./WorkIntro.tsx";
-import "../../styles/SelectedWork.css";
+import "../styles/SelectedWork.css";
 
 const INDEX_DIGITS = 2;
 

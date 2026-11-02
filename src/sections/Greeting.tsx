@@ -1,7 +1,7 @@
 import { useId } from "react";
-import type { GreetingContent } from "../../types/site.ts";
-import ScrollRevealText from "../common/ScrollRevealText.tsx";
-import "../../styles/Greeting.css";
+import type { GreetingContent } from "../types/site.ts";
+import ScrollRevealText from "../components/ScrollRevealText.tsx";
+import "../styles/Greeting.css";
 
 interface GreetingProps {
   content: GreetingContent;

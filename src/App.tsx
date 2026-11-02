@@ -1,22 +1,22 @@
 import { useState } from 'react'
-// import StairsReveal from './components/common/Transition.tsx'
-import SiteHeader from './components/common/SiteHeader.tsx'
-import SiteFooter from './components/common/SiteFooter.tsx'
-import Cursor from './components/common/Cursor.tsx'
-import Preloader from './components/specific/Preloader.tsx'
-import Hero from './components/specific/Hero.tsx'
-import Marquee from './components/common/Marquee.tsx'
-import Greeting from './components/specific/Greeting.tsx'
-import SelectedWork from './components/specific/SelectedWork.tsx'
-import Expertise from './components/specific/Expertise.tsx'
-import { preloaderContent } from './data/Preloader.ts'
-import { siteHeaderContent } from './data/SiteHeader.ts'
-import { heroContent } from './data/Hero.ts'
-import { marqueeContent } from './data/Marquee.ts'
-import { greetingContent } from './data/Greeting.ts'
-import { selectedWorkContent } from './data/SelectedWork.ts'
-import { expertiseContent } from './data/Expertise.ts'
-import { siteFooterContent } from './data/SiteFooter.ts'
+// import Transition from './components/Transition.tsx'
+import Header from './sections/Header.tsx'
+import Footer from './sections/Footer.tsx'
+import Cursor from './components/Cursor.tsx'
+import Preloader from './sections/Preloader.tsx'
+import Hero from './sections/Hero.tsx'
+import Marquee from './components/Marquee.tsx'
+import Greeting from './sections/Greeting.tsx'
+import SelectedWork from './sections/SelectedWork.tsx'
+import Expertise from './sections/Expertise.tsx'
+import { preloaderContent } from './content/Preloader.ts'
+import { headerContent } from './content/Header.ts'
+import { heroContent } from './content/Hero.ts'
+import { marqueeContent } from './content/Marquee.ts'
+import { greetingContent } from './content/Greeting.ts'
+import { selectedWorkContent } from './content/SelectedWork.ts'
+import { expertiseContent } from './content/Expertise.ts'
+import { footerContent } from './content/Footer.ts'
 
 function App() {
   const [isPreloading, setIsPreloading] = useState(true)
@@ -24,7 +24,7 @@ function App() {
   return(
     <>
       <Cursor/>
-      <SiteHeader content={siteHeaderContent} inert={isPreloading} revealed={!isPreloading}/>
+      <Header content={headerContent} inert={isPreloading} revealed={!isPreloading}/>
       <main id="main" tabIndex={-1} inert={isPreloading}>
         <Hero content={heroContent} revealed={!isPreloading}/>
         <Marquee content={marqueeContent}/>
@@ -32,7 +32,7 @@ function App() {
         <SelectedWork content={selectedWorkContent}/>
         <Expertise content={expertiseContent}/>
       </main>
-      <SiteFooter content={siteFooterContent} inert={isPreloading}/>
+      <Footer content={footerContent} inert={isPreloading}/>
 
       {isPreloading && (
         <Preloader content={preloaderContent} onComplete={() => setIsPreloading(false)}/>

@@ -2,7 +2,7 @@
   --expertise-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
   --expertise-space-block: clamp(5rem, 3rem + 6vw, 9rem);
   --expertise-column-gap: clamp(2rem, 6vw, 7rem);
-  --expertise-sticky-top: calc(var(--site-header-height, 4rem) + clamp(1rem, 0.5rem + 2vw, 2.5rem));
+  --expertise-sticky-top: calc(var(--header-height, 4rem) + clamp(1rem, 0.5rem + 2vw, 2.5rem));
   --expertise-row-space: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
   --expertise-number-column: 3rem;
   --expertise-capsules-measure: 30rem;

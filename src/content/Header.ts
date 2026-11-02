@@ -1,6 +1,6 @@
-import type { SiteHeaderContent } from "../types/site.ts";
+import type { HeaderContent } from "../types/site.ts";
 
-export const siteHeaderContent = {
+export const headerContent = {
   logo: { href: "/", ariaLabel: "Herald Panji, home" },
   location: { label: "Jakarta, ID", timeZone: "Asia/Jakarta", separator: "//" },
   navLabel: "Main",
@@ -9,4 +9,4 @@ export const siteHeaderContent = {
     { label: "Work", href: "/work" },
     { label: "Contact", href: "/contact" },
   ],
-} as const satisfies SiteHeaderContent;
+} as const satisfies HeaderContent;

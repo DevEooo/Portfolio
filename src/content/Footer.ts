@@ -1,6 +1,6 @@
-import type { SiteFooterContent } from "../types/site.ts";
+import type { FooterContent } from "../types/site.ts";
 
-export const siteFooterContent = {
+export const footerContent = {
   headline: { lead: "Got any ideas?", accent: "Let’s talk." },
   body: "Software, tools, websites, or something that’s still taking shape. If it can be built, we can build it together.",
   cta: { label: "Start a conversation", href: "/contact" },
@@ -30,4 +30,4 @@ export const siteFooterContent = {
   newTabLabel: "(opens in a new tab)",
   copyright: "© 2026 Herald Panji",
   backToTop: { label: "Back to top", targetId: "main" },
-} as const satisfies SiteFooterContent;
+} as const satisfies FooterContent;

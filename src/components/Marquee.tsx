@@ -9,22 +9,23 @@ import {
   type FC,
   type PointerEvent,
   type SVGProps
-} from 'react';
-import '../../styles/MarqueeLoop.css';
+} from "react";
+import type { MarqueeContent } from "../types/site.ts";
+import "../styles/Marquee.css";
 
-export type CurvedLoopShape = 'arc' | 'wave' | 'circle' | 'line';
+type LoopShape = "arc" | "wave" | "circle" | "line";
 
-export interface CurvedLoopProps {
+interface LoopProps {
   marqueeText?: string;
   speed?: number;
   className?: string;
   curveAmount?: number;
-  direction?: 'left' | 'right';
+  direction?: "left" | "right";
   interactive?: boolean;
   pauseOnHover?: boolean;
   color?: string;
   edgeFade?: number;
-  shape?: CurvedLoopShape;
+  shape?: LoopShape;
   viewHeight?: number;
   fontSize?: number;
   fontWeight?: number | string;
@@ -62,7 +63,7 @@ const WAVE_LENGTH = 960;
 const RING_RADIUS = 2.2;
 const TAU = Math.PI * 2;
 
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const wrapOffset = (value: number, length: number) =>
   length > 0 ? (((value % length) + length) % length) - length : value;
@@ -82,7 +83,7 @@ const edgeMask = (amount: number, span: number) => {
     left.push(`rgba(0, 0, 0, ${alpha}) ${(start + t * size).toFixed(2)}%`);
     right.unshift(`rgba(0, 0, 0, ${alpha}) ${(100 - start - t * size).toFixed(2)}%`);
   }
-  return `linear-gradient(to right, ${[...left, ...right].join(', ')})`;
+  return `linear-gradient(to right, ${[...left, ...right].join(", ")})`;
 };
 
 const wavePath = (amplitude: number, baseline: number) => {
@@ -104,13 +105,13 @@ const wavePath = (amplitude: number, baseline: number) => {
 };
 
 const getGeometry = (
-  shape: CurvedLoopShape,
+  shape: LoopShape,
   curveAmount: number,
   fontSize: number,
   spacing: number,
   viewHeight: number
 ): Geometry => {
-  if (shape === 'circle') {
+  if (shape === "circle") {
     const repeats = spacing > 0 ? Math.max(1, Math.round((TAU * fontSize * RING_RADIUS) / spacing)) : 1;
     const radius = spacing > 0 ? (repeats * spacing) / TAU : fontSize * RING_RADIUS;
     const half = radius + fontSize;
@@ -124,35 +125,35 @@ const getGeometry = (
   }
   const flat = { viewBox: `0 0 ${VIEW_WIDTH} ${viewHeight}`, radius: 0, repeats: 0, span: 1 };
   const baseline = viewHeight / 2 + fontSize * 0.36;
-  if (shape === 'line') return { ...flat, d: `M-100,${baseline} L${VIEW_WIDTH + 100},${baseline}` };
-  if (shape === 'wave') return { ...flat, d: wavePath(curveAmount * 0.25, baseline) };
+  if (shape === "line") return { ...flat, d: `M-100,${baseline} L${VIEW_WIDTH + 100},${baseline}` };
+  if (shape === "wave") return { ...flat, d: wavePath(curveAmount * 0.25, baseline) };
   return { ...flat, d: `M-100,40 Q500,${40 + curveAmount} 1540,40` };
 };
 
-const CurvedLoop: FC<CurvedLoopProps> = ({
-  marqueeText = '',
+const MarqueeLoop: FC<LoopProps> = ({
+  marqueeText = "",
   speed = 2,
   className,
   curveAmount = 400,
-  direction = 'left',
+  direction = "left",
   interactive = true,
   pauseOnHover = false,
-  color = 'currentColor',
+  color = "currentColor",
   edgeFade = 0,
-  shape = 'arc',
+  shape = "arc",
   viewHeight = 120,
   fontSize = 96,
   fontWeight = 700,
   letterSpacing = 0,
   outline = false,
-  separator = '',
+  separator = "",
   separatorColor,
   scrollBoost = 0
 }) => {
-  const body = useMemo(() => marqueeText.replace(/\s+$/, ''), [marqueeText]);
-  const mark = String(separator ?? '').trim();
+  const body = useMemo(() => marqueeText.replace(/\s+$/, ""), [marqueeText]);
+  const mark = String(separator ?? "").trim();
   const text = mark ? `${body}\u00A0${mark}\u00A0` : `${body}\u00A0`;
-  const pathId = `curve-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  const pathId = `curve-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   const jacketRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -167,7 +168,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   const spacingRef = useRef(0);
   const offsetRef = useRef(0);
   const velocityRef = useRef(0);
-  const directionRef = useRef<'left' | 'right'>(direction);
+  const directionRef = useRef<"left" | "right">(direction);
   const hoverRef = useRef(false);
   const settingsRef = useRef({ speed, pauseOnHover, scrollBoost });
   const scrollRef = useRef({ distance: 0, level: 0 });
@@ -184,7 +185,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     cy: 0
   });
 
-  const ring = shape === 'circle';
+  const ring = shape === "circle";
   const geometry = getGeometry(shape, curveAmount, fontSize, spacing, viewHeight);
   const ready = spacing > 0;
   const copies = ready ? (ring ? geometry.repeats + 1 : Math.ceil((pathLength || 1800) / spacing) + 2) : 1;
@@ -198,13 +199,13 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
       <Fragment key={i}>
         {`${body}\u00A0`}
         <tspan {...markProps}>{mark}</tspan>
-        {'\u00A0'}
+        {"\u00A0"}
       </Fragment>
     ));
 
   const applyOffset = () => {
     const value = `${offsetRef.current}px`;
-    for (const node of textPathsRef.current) node.setAttribute('startOffset', value);
+    for (const node of textPathsRef.current) node.setAttribute("startOffset", value);
   };
 
   useEffect(() => {
@@ -223,12 +224,12 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     let active = true;
     const fonts = document.fonts;
     fonts?.ready.then(() => active && measure());
-    fonts?.addEventListener?.('loadingdone', measure);
-    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    fonts?.addEventListener?.("loadingdone", measure);
+    const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(measure) : null;
     if (observer && svgRef.current) observer.observe(svgRef.current);
     return () => {
       active = false;
-      fonts?.removeEventListener?.('loadingdone', measure);
+      fonts?.removeEventListener?.("loadingdone", measure);
       observer?.disconnect();
     };
   }, [text, className, fontSize, fontWeight, letterSpacing]);
@@ -244,9 +245,9 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   }, [ready, spacing]);
 
   useIsomorphicLayoutEffect(() => {
-    textPathsRef.current = svgRef.current ? Array.from(svgRef.current.querySelectorAll('textPath')) : [];
+    textPathsRef.current = svgRef.current ? Array.from(svgRef.current.querySelectorAll("textPath")) : [];
     const value = `${offsetRef.current}px`;
-    for (const node of textPathsRef.current) node.setAttribute('startOffset', value);
+    for (const node of textPathsRef.current) node.setAttribute("startOffset", value);
   });
 
   useEffect(() => {
@@ -260,13 +261,13 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
       positions.set(target, position);
       if (previous !== undefined) scrollRef.current.distance += Math.abs(position - previous);
     };
-    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
-    return () => window.removeEventListener('scroll', onScroll, { capture: true });
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () => window.removeEventListener("scroll", onScroll, { capture: true });
   }, [scrollBoost]);
 
   useEffect(() => {
     if (!ready) return;
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
     let frame = 0;
     let last = 0;
     let visible = true;
@@ -282,7 +283,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
       scroll.level += (rate - scroll.level) * (1 - Math.exp(-dt * (rate > scroll.level ? 10 : 2.4)));
       if (!dragRef.current.active) {
         const { speed: base, pauseOnHover: pause, scrollBoost: boost } = settingsRef.current;
-        const sign = directionRef.current === 'right' ? 1 : -1;
+        const sign = directionRef.current === "right" ? 1 : -1;
         const halted = reduceMotion || (pause && hoverRef.current);
         const target = halted ? 0 : sign * base * 60;
         const extra = halted ? 0 : sign * scroll.level * boost * 0.3;
@@ -290,14 +291,14 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
         const step = (velocityRef.current + extra) * dt;
         if (Math.abs(step) > 0.0001) {
           offsetRef.current = wrapOffset(offsetRef.current + step, spacingRef.current);
-          for (const node of textPathsRef.current) node.setAttribute('startOffset', `${offsetRef.current}px`);
+          for (const node of textPathsRef.current) node.setAttribute("startOffset", `${offsetRef.current}px`);
         }
       }
       frame = requestAnimationFrame(tick);
     };
 
     const observer =
-      typeof IntersectionObserver !== 'undefined'
+      typeof IntersectionObserver !== "undefined"
         ? new IntersectionObserver(([entry]) => {
             visible = entry.isIntersecting;
             if (visible && !frame) {
@@ -364,7 +365,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     setDragging(false);
     const fling = performance.now() - drag.time > 100 ? 0 : Math.max(-MAX_FLING, Math.min(MAX_FLING, drag.velocity));
     velocityRef.current = fling;
-    if (Math.abs(fling) > 60) directionRef.current = fling > 0 ? 'right' : 'left';
+    if (Math.abs(fling) > 60) directionRef.current = fling > 0 ? "right" : "left";
   };
 
   const onPointerLeave = () => {
@@ -375,11 +376,11 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   return (
     <div
       ref={jacketRef}
-      className="curved-loop"
+      className="marquee__loop"
       style={{
-        visibility: ready ? 'visible' : 'hidden',
-        cursor: interactive ? (dragging ? 'grabbing' : 'grab') : 'auto',
-        touchAction: interactive ? 'pan-y' : 'auto',
+        visibility: ready ? "visible" : "hidden",
+        cursor: interactive ? (dragging ? "grabbing" : "grab") : "auto",
+        touchAction: interactive ? "pan-y" : "auto",
         maskImage: mask,
         WebkitMaskImage: mask
       }}
@@ -395,14 +396,14 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     >
       <svg
         ref={svgRef}
-        className="curved-loop__svg"
+        className="marquee__svg"
         viewBox={geometry.viewBox}
         style={{
           fontSize,
           fontWeight,
           letterSpacing,
           aspectRatio: `${VIEW_WIDTH} / ${viewHeight}`,
-          ...(ring ? { width: `${(geometry.span * 100).toFixed(3)}%`, aspectRatio: '1' } : null)
+          ...(ring ? { width: `${(geometry.span * 100).toFixed(3)}%`, aspectRatio: "1" } : null)
         }}
         role="img"
         aria-label={marqueeText}
@@ -411,7 +412,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
           ref={measureRef}
           xmlSpace="preserve"
           className={className}
-          style={{ visibility: 'hidden', opacity: 0, pointerEvents: 'none' }}
+          style={{ visibility: "hidden", opacity: 0, pointerEvents: "none" }}
         >
           {text}
         </text>
@@ -447,7 +448,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
               mask={`url(#${maskId})`}
             >
               <textPath href={`#${pathId}`} xmlSpace="preserve">
-                {accent ? repeat({ stroke: 'none' }) : plain}
+                {accent ? repeat({ stroke: "none" }) : plain}
               </textPath>
             </text>
           ) : (
@@ -469,4 +470,33 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   );
 };
 
-export default CurvedLoop;
+const MARQUEE_LOOP = {
+  shape: "line",
+  viewHeight: 96,
+  fontSize: 36,
+  fontWeight: 400,
+  letterSpacing: 2,
+  speed: 1,
+  scrollBoost: 0.6,
+  interactive: true,
+  pauseOnHover: true,
+} as const satisfies LoopProps;
+
+interface MarqueeProps {
+  content: MarqueeContent;
+  direction?: "left" | "right";
+}
+
+export default function Marquee({ content, direction = "left" }: MarqueeProps) {
+  return (
+    <div className="marquee" aria-hidden="true">
+      <MarqueeLoop
+        {...MARQUEE_LOOP}
+        marqueeText={content.list.words}
+        separator={content.list.separator}
+        direction={direction}
+        className="marquee__text"
+      />
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { ExpertiseContent } from "../../types/site.ts";
-import "../../styles/Expertise.css";
+import type { ExpertiseContent } from "../types/site.ts";
+import "../styles/Expertise.css";
 
 const ACTIVE_LINE_MARGIN = "-50% 0px -50% 0px";
 const ARRIVE_MARGIN = "0px 0px -15% 0px";
@@ -100,7 +100,6 @@ export default function Expertise({ content }: ExpertiseProps) {
       </div>
 
       <div className="expertise__main">
-        <p className="expertise__list-label">{content.listLabel}</p>
         <ol ref={listRef} className="expertise__services" data-has-active={activeService ? "true" : "false"}>
           {services.map((service, index) => (
             <li

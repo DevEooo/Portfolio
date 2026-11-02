@@ -1,5 +1,5 @@
-import { WORDMARK } from "./wordmark.ts";
-import "../../styles/Logo.css";
+import { WORDMARK } from "../lib/wordmark.ts";
+import "../styles/Logo.css";
 
 interface LogoProps {
   className?: string;

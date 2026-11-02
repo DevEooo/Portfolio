@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import type { SiteHeaderContent } from "../../types/site.ts";
-import Logo from "./Logo.tsx";
-import "../../styles/SiteHeader.css";
+import type { HeaderContent } from "../types/site.ts";
+import Logo from "../components/Logo.tsx";
+import "../styles/Header.css";
 
 gsap.registerPlugin(useGSAP);
 
@@ -46,13 +46,13 @@ function useMinuteClock(): Date {
   return now;
 }
 
-interface SiteHeaderProps {
-  content: SiteHeaderContent;
+interface HeaderProps {
+  content: HeaderContent;
   inert?: boolean;
   revealed?: boolean;
 }
 
-export default function SiteHeader({ content, inert = false, revealed = true }: SiteHeaderProps) {
+export default function Header({ content, inert = false, revealed = true }: HeaderProps) {
   const { logo, location, navLabel, nav } = content;
   const now = useMinuteClock();
   const rootRef = useRef<HTMLElement>(null);
@@ -85,24 +85,24 @@ export default function SiteHeader({ content, inert = false, revealed = true }: 
   );
 
   return (
-    <header ref={rootRef} className="site-header" inert={inert}>
-      <a className="site-header__logo" href={logo.href} aria-label={logo.ariaLabel}>
+    <header ref={rootRef} className="header" inert={inert}>
+      <a className="header__logo" href={logo.href} aria-label={logo.ariaLabel}>
         <Logo />
       </a>
 
-      <p className="site-header__clock">
+      <p className="header__clock">
         <span>{location.label}</span>
-        <span className="site-header__separator" aria-hidden="true">
+        <span className="header__separator" aria-hidden="true">
           {location.separator}
         </span>
         <time dateTime={now.toISOString()}>{formatTime(now, location.timeZone)}</time>
       </p>
 
-      <nav className="site-header__nav" aria-label={navLabel}>
-        <ul className="site-header__nav-list">
+      <nav className="header__nav" aria-label={navLabel}>
+        <ul className="header__nav-list">
           {nav.map((item) => (
             <li key={item.href}>
-              <a className="site-header__nav-link" href={item.href}>
+              <a className="header__nav-link" href={item.href}>
                 {item.label}
               </a>
             </li>

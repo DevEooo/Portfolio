@@ -1,6 +1,6 @@
 .hero {
   --hero-gutter: var(--gutter, clamp(1rem, 0.6rem + 1.2vw, 1.5rem));
-  --hero-header-offset: var(--site-header-height, 4rem);
+  --hero-header-offset: var(--header-height, 4rem);
   --hero-rail: 3rem;
   --hero-row-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
   --hero-visual-ratio: 4 / 5;

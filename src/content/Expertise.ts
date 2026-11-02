@@ -5,7 +5,6 @@ export const expertiseContent = {
   title: { lead: "Things I’m", accent: "good at." },
   toolsLabel: "Tools",
   usedInLabel: "Used in",
-  listLabel: "Service list",
   tools: ["Python", "TypeScript", "React", "Laravel", "Tailwind CSS", "GSAP", "MySQL", "Git", "OpenCV", "Kotlin", "C#", "Java"],
   services: [
     {

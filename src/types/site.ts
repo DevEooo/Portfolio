@@ -3,7 +3,7 @@ export type NavLink = {
   href: string;
 };
 
-export type SiteHeaderContent = {
+export type HeaderContent = {
   logo: {
     href: string;
     ariaLabel: string;
@@ -87,7 +87,7 @@ export type FooterLinkGroup = {
   links: readonly FooterLink[];
 };
 
-export type SiteFooterContent = {
+export type FooterContent = {
   headline: {
     lead: string;
     accent: string;
@@ -122,7 +122,6 @@ export type ExpertiseContent = {
   title: { lead: string; accent: string };
   toolsLabel: string;
   usedInLabel: string;
-  listLabel: string;
   tools: readonly string[];
   services: readonly ExpertiseService[];
 };

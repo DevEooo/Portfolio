@@ -1,8 +1,8 @@
 import { useId, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { CURSOR_LABEL_ATTRIBUTE, CURSOR_PROJECT_SELECTOR } from "./cursorTarget.ts";
-import "../../styles/Cursor.css";
+import { CURSOR_LABEL_ATTRIBUTE, CURSOR_PROJECT_SELECTOR } from "../lib/cursorTarget.ts";
+import "../styles/Cursor.css";
 
 gsap.registerPlugin(useGSAP);
 

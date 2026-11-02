@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import type { ProjectImage } from "../../types/site.ts";
-import "../../styles/WorkIntro.css";
+import type { ProjectImage } from "../types/site.ts";
+import "../styles/WorkIntro.css";
 
 gsap.registerPlugin(useGSAP);
 

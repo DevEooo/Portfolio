@@ -1,4 +1,4 @@
-import type { PreloaderContent } from "../components/specific/Preloader.tsx";
+import type { PreloaderContent } from "../sections/Preloader.tsx";
 
 export const preloaderContent = {
   identity: ["AI Engineer", "Jakarta, Indonesia"],

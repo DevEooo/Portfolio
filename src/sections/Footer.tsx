@@ -2,9 +2,9 @@ import { useEffect, useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import type { SiteFooterContent } from "../../types/site.ts";
-import { WORDMARK } from "./wordmark.ts";
-import "../../styles/SiteFooter.css";
+import type { FooterContent } from "../types/site.ts";
+import { WORDMARK } from "../lib/wordmark.ts";
+import "../styles/Footer.css";
 
 gsap.registerPlugin(useGSAP);
 
@@ -38,12 +38,12 @@ function loadScrollTrigger(): Promise<void> {
   return scrollTriggerPromise;
 }
 
-interface SiteFooterProps {
-  content: SiteFooterContent;
+interface FooterProps {
+  content: FooterContent;
   inert?: boolean;
 }
 
-export default function SiteFooter({ content, inert = false }: SiteFooterProps) {
+export default function Footer({ content, inert = false }: FooterProps) {
   const titleId = useId();
   const markRef = useRef<HTMLDivElement>(null);
   const [copyState, setCopyState] = useState<CopyState>("idle");
@@ -66,8 +66,8 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
 
         mm = gsap.matchMedia();
         mm.add(FULL_MOTION, () => {
-          const letters = gsap.utils.toArray<HTMLElement>(".site-footer__glyph-inner", mark);
-          const dot = mark.querySelector<HTMLElement>(".site-footer__dot");
+          const letters = gsap.utils.toArray<HTMLElement>(".footer__glyph-inner", mark);
+          const dot = mark.querySelector<HTMLElement>(".footer__dot");
           const { letter, dot: dotStep } = FOOTER_REVEAL;
 
           const timeline = gsap.timeline({ scrollTrigger: { trigger: mark, start: FOOTER_REVEAL.start, once: true } });
@@ -105,37 +105,37 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
     copyState === "copied" ? email.copiedLabel : copyState === "failed" ? email.failedLabel : "";
 
   return (
-    <footer className="site-footer" aria-labelledby={titleId} inert={inert}>
-      <div className="site-footer__top">
-        <div className="site-footer__intro">
-          <h2 id={titleId} className="site-footer__title">
-            <span className="site-footer__title-line">{headline.lead}</span>{" "}
-            <span className="site-footer__title-line site-footer__title-line--accent">{headline.accent}</span>
+    <footer className="footer" aria-labelledby={titleId} inert={inert}>
+      <div className="footer__top">
+        <div className="footer__intro">
+          <h2 id={titleId} className="footer__title">
+            <span className="footer__title-line">{headline.lead}</span>{" "}
+            <span className="footer__title-line footer__title-line--accent">{headline.accent}</span>
           </h2>
-          <p className="site-footer__body">{content.body}</p>
+          <p className="footer__body">{content.body}</p>
         </div>
 
-        <div className="site-footer__aside">
-          <nav className="site-footer__links" aria-label={content.linksLabel}>
+        <div className="footer__aside">
+          <nav className="footer__links" aria-label={content.linksLabel}>
             {content.groups.map((group) => (
-              <div key={group.label} className="site-footer__group">
-                <h3 className="site-footer__group-label">{group.label}</h3>
-                <ul className="site-footer__list">
+              <div key={group.label} className="footer__group">
+                <h3 className="footer__group-label">{group.label}</h3>
+                <ul className="footer__list">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       {link.external ? (
                         <a
-                          className="site-footer__link site-footer__link--external"
+                          className="footer__link footer__link--external"
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           {link.label}
-                          <ArrowUpRight className="site-footer__link-icon" aria-hidden="true" focusable="false" />
-                          <span className="site-footer__sr-only"> {content.newTabLabel}</span>
+                          <ArrowUpRight className="footer__link-icon" aria-hidden="true" focusable="false" />
+                          <span className="footer__sr-only"> {content.newTabLabel}</span>
                         </a>
                       ) : (
-                        <a className="site-footer__link" href={link.href}>
+                        <a className="footer__link" href={link.href}>
                           {link.label}
                         </a>
                       )}
@@ -146,37 +146,37 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
             ))}
           </nav>
 
-          <div className="site-footer__contact">
+          <div className="footer__contact">
             <button
               type="button"
-              className="site-footer__email"
+              className="footer__email"
               title={email.copyLabel}
               onClick={() => void copyEmail()}
             >
               {email.address}
-              <span className="site-footer__sr-only"> {email.copyLabel}</span>
+              <span className="footer__sr-only"> {email.copyLabel}</span>
             </button>
-            <span className="site-footer__copy-status" role="status">
+            <span className="footer__copy-status" role="status">
               {copyStatus}
             </span>
-            <a className="site-footer__cta" href={cta.href}>
+            <a className="footer__cta" href={cta.href}>
               {cta.label}
-              <ArrowRight className="site-footer__cta-icon" aria-hidden="true" focusable="false" />
+              <ArrowRight className="footer__cta-icon" aria-hidden="true" focusable="false" />
             </a>
           </div>
         </div>
       </div>
 
-      <div className="site-footer__bottom">
-        <p className="site-footer__copyright">{content.copyright}</p>
+      <div className="footer__bottom">
+        <p className="footer__copyright">{content.copyright}</p>
       </div>
 
-      <div ref={markRef} className="site-footer__mark">
+      <div ref={markRef} className="footer__mark">
         {GLYPHS.map((glyph) => (
-          <span key={glyph.key} className={`site-footer__glyph site-footer__glyph--${glyph.key}`} aria-hidden="true">
-            <span className="site-footer__glyph-inner">
+          <span key={glyph.key} className={`footer__glyph footer__glyph--${glyph.key}`} aria-hidden="true">
+            <span className="footer__glyph-inner">
               <svg
-                className="site-footer__glyph-svg"
+                className="footer__glyph-svg"
                 viewBox={`${glyph.x} 0 ${glyph.width} ${WORDMARK_HEIGHT}`}
                 focusable="false"
               >
@@ -185,8 +185,8 @@ export default function SiteFooter({ content, inert = false }: SiteFooterProps) 
             </span>
           </span>
         ))}
-        <button type="button" className="site-footer__dot" aria-label={backToTop.label} onClick={scrollToTop}>
-          <svg className="site-footer__dot-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <button type="button" className="footer__dot" aria-label={backToTop.label} onClick={scrollToTop}>
+          <svg className="footer__dot-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M12 20V5M5.5 11.5 12 5l6.5 6.5" />
           </svg>
         </button>

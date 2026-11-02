@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import "../../styles/Preloader.css";
+import "../styles/Preloader.css";
 
 gsap.registerPlugin(useGSAP);
 
@@ -61,7 +61,9 @@ function hasSeen(key: string): boolean {
 function markSeen(key: string): void {
   try {
     window.sessionStorage.setItem(key, "1");
-  } catch {}
+  } catch {
+    // Storage blocked (private mode); the preloader will just play again next visit.
+  }
 }
 
 function prefersReducedMotion(): boolean {
