@@ -1,0 +1,154 @@
+.project-process {
+  --project-process-gutter: var(--project-gutter, max(16px, 1.5rem));
+  --project-process-max: var(--project-max, 90rem);
+  --project-process-space-after: clamp(6rem, 3rem + 7vw, 10rem);
+  --project-process-sticky-top: 8rem;
+  --project-process-stage-gap: 11rem;
+  --project-process-stage-gap-narrow: 4rem;
+  --project-process-rail: 2px;
+  --project-process-row: 2.75rem;
+  --project-process-nudge: 0.75rem;
+  --project-process-title-size: clamp(2.625rem, 1.95rem + 1.5vw, 3.375rem);
+  --project-process-body-measure: 35rem;
+  --project-process-index-font: "Inter", system-ui, sans-serif;
+
+  --project-process-text: var(--text, #f0f0f0);
+  --project-process-body: var(--text-body, #b8bfbf);
+  --project-process-muted: var(--text-muted, #8a9393);
+  --project-process-track: var(--line-strong, #687171);
+  --project-process-fill: var(--azure, #007fff);
+  --project-process-focus: var(--azure-light, #4da3ff);
+  --project-process-duration: 300ms;
+  --project-process-ease: var(--ease-out-soft, cubic-bezier(0.2, 0.8, 0.2, 1));
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 2rem;
+  max-width: var(--project-process-max);
+  margin: 0 auto;
+  padding-block: 2rem var(--project-process-space-after);
+  padding-inline: max(var(--project-process-gutter), env(safe-area-inset-left, 0px)) max(var(--project-process-gutter), env(safe-area-inset-right, 0px));
+  color: var(--project-process-text);
+}
+
+.project-process__index {
+  position: sticky;
+  top: var(--project-process-sticky-top);
+  align-self: start;
+  display: flex;
+  gap: 1rem;
+}
+
+.project-process__rail {
+  position: relative;
+  flex: none;
+  width: var(--project-process-rail);
+  background: var(--project-process-track);
+  overflow: hidden;
+}
+
+.project-process__rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--project-process-fill);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+}
+
+.project-process__links {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-process__link {
+  display: flex;
+  align-items: center;
+  min-height: var(--project-process-row);
+  font-family: var(--project-process-index-font);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--project-process-muted);
+  transition:
+    color var(--project-process-duration) var(--project-process-ease),
+    transform var(--project-process-duration) var(--project-process-ease);
+}
+
+.project-process__link:hover {
+  color: var(--project-process-text);
+}
+
+.project-process__link[aria-current="step"] {
+  color: var(--project-process-text);
+  transform: translateX(var(--project-process-nudge));
+}
+
+.project-process__link:focus-visible {
+  outline: 2px solid var(--project-process-focus);
+  outline-offset: 3px;
+}
+
+.project-process__stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--project-process-stage-gap);
+}
+
+.project-process__stage {
+  scroll-margin-top: var(--project-process-sticky-top);
+}
+
+.project-process__title {
+  margin: 0;
+  font-family: var(--font-display, "Space Grotesk", system-ui, sans-serif);
+  font-size: var(--project-process-title-size);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.project-process__body {
+  max-width: var(--project-process-body-measure);
+  margin: 1.25rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--project-process-body);
+}
+
+.project-process__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 56rem) {
+  .project-process {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-process__index {
+    display: none;
+  }
+
+  .project-process__stages {
+    gap: var(--project-process-stage-gap-narrow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-process__link {
+    transition: none;
+  }
+}

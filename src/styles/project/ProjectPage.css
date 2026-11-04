@@ -1,0 +1,12 @@
+.project-page {
+  --project-gutter: max(16px, var(--gutter, 1.5rem));
+  --project-max: 90rem;
+
+  display: block;
+  background: var(--void, #141616);
+  color: var(--text, #f0f0f0);
+}
+
+.project-page:focus {
+  outline: none;
+}

@@ -126,3 +126,54 @@ export type FooterContent = {
   };
 };
 
+export type ProjectStageId = 'research' | 'plan' | 'design' | 'build' | 'launch';
+
+export type ProjectStage = {
+  id: ProjectStageId;
+  body: string;
+};
+
+export type ProjectMedia = {
+  src: string | null;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type ProjectDetail = {
+  slug: string;
+  name: string;
+  type: string;
+  year: string;
+  status: string;
+  overview: string;
+  cover: ProjectMedia;
+  gallery: readonly ProjectMedia[];
+  stages: readonly ProjectStage[];
+};
+
+export type ProjectPageContent = {
+  documentTitle: string;
+  backLink: { label: string; href: string };
+  counterLabel: string;
+  scrollCue: string;
+  meta: { type: string; year: string; status: string };
+  overviewLabel: string;
+  gallery: {
+    label: string;
+    previous: string;
+    next: string;
+    open: string;
+    viewer: string;
+    close: string;
+  };
+  process: {
+    heading: string;
+    navLabel: string;
+    stageTitles: Record<ProjectStageId, string>;
+  };
+  next: {
+    navLabel: string;
+    cursorLabel: string;
+  };
+};

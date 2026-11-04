@@ -1,0 +1,28 @@
+.project-media {
+  --project-media-placeholder: var(--photo, #d4d4d4);
+  --project-media-on-placeholder: var(--void, #141616);
+  --project-media-label-size: 0.75rem;
+  --project-media-tracking: 0.04em;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-media--placeholder {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: var(--project-media-placeholder);
+}
+
+.project-media__label {
+  font-family: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  font-size: var(--project-media-label-size);
+  letter-spacing: var(--project-media-tracking);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--project-media-on-placeholder);
+}

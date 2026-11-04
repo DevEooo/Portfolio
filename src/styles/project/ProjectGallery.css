@@ -1,0 +1,117 @@
+.project-gallery {
+  --project-gallery-gutter: var(--project-gutter, max(16px, 1.5rem));
+  --project-gallery-max: var(--project-max, 90rem);
+  --project-gallery-space-after: clamp(6rem, 3rem + 7vw, 10rem);
+  --project-gallery-gap: 1.3rem;
+  --project-gallery-visible: 3.2;
+  --project-gallery-visible-narrow: 78%;
+  --project-gallery-control: 2.75rem;
+  --project-gallery-text: var(--text, #f0f0f0);
+  --project-gallery-muted: var(--text-muted, #8a9393);
+  --project-gallery-disabled: var(--line-strong, #687171);
+  --project-gallery-focus: var(--azure-light, #4da3ff);
+
+  box-sizing: border-box;
+  max-width: var(--project-gallery-max);
+  margin: 0 auto;
+  padding-bottom: var(--project-gallery-space-after);
+  padding-inline: max(var(--project-gallery-gutter), env(safe-area-inset-left, 0px)) max(var(--project-gallery-gutter), env(safe-area-inset-right, 0px));
+}
+
+.project-gallery__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.project-gallery__count {
+  margin: 0;
+  font-family: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--project-gallery-muted);
+}
+
+.project-gallery__count::before { content: "{\00a0"; content: "{\00a0" / ""; }
+.project-gallery__count::after { content: "\00a0}"; content: "\00a0}" / ""; }
+
+.project-gallery__arrows {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.project-gallery__arrow {
+  display: grid;
+  place-items: center;
+  width: var(--project-gallery-control);
+  height: var(--project-gallery-control);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--project-gallery-text);
+  cursor: pointer;
+}
+
+.project-gallery__arrow:disabled {
+  color: var(--project-gallery-disabled);
+  cursor: default;
+}
+
+.project-gallery__arrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.project-gallery__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2 * var(--project-gallery-gap)) / var(--project-gallery-visible));
+  gap: var(--project-gallery-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.project-gallery__track::-webkit-scrollbar {
+  display: none;
+}
+
+.project-gallery__slide {
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.project-gallery__open {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.project-gallery :focus-visible {
+  outline: 2px solid var(--project-gallery-focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 56rem) {
+  .project-gallery__track {
+    grid-auto-columns: var(--project-gallery-visible-narrow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery__track {
+    scroll-behavior: auto;
+  }
+}
