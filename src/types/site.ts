@@ -76,6 +76,22 @@ export type SelectedWorkContent = {
   projects: readonly Project[];
 };
 
+export type ExpertiseService = {
+  id: string;
+  title: string;
+  description: string;
+  tools: readonly string[];
+};
+
+export type ExpertiseContent = {
+  eyebrow: { index: string; label: string };
+  title: { lead: string; accent: string };
+  toolsLabel: string;
+  usedInLabel: string;
+  tools: readonly string[];
+  services: readonly ExpertiseService[];
+};
+
 export type FooterLink = {
   label: string;
   href: string;
@@ -110,18 +126,3 @@ export type FooterContent = {
   };
 };
 
-export type ExpertiseService = {
-  id: string;
-  title: string;
-  description: string;
-  tools: readonly string[];
-};
-
-export type ExpertiseContent = {
-  eyebrow: { index: string; label: string };
-  title: { lead: string; accent: string };
-  toolsLabel: string;
-  usedInLabel: string;
-  tools: readonly string[];
-  services: readonly ExpertiseService[];
-};

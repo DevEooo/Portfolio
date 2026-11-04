@@ -46,3 +46,5 @@ $RECYCLE.BIN/
 
 # Agent local settings
 .claude/settings.local.json
+
+CLAUDE.md
