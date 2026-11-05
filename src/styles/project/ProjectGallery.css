@@ -1,10 +1,13 @@
 .project-gallery {
-  --project-gallery-gutter: var(--project-gutter, max(16px, 1.5rem));
-  --project-gallery-max: var(--project-max, 90rem);
+  --project-gallery-gutter: var(--gutter);
+  --project-gallery-inset-start: max(var(--project-gallery-gutter), env(safe-area-inset-left, 0px));
+  --project-gallery-inset-end: max(var(--project-gallery-gutter), env(safe-area-inset-right, 0px));
   --project-gallery-space-after: clamp(6rem, 3rem + 7vw, 10rem);
   --project-gallery-gap: 1.3rem;
-  --project-gallery-visible: 3.2;
-  --project-gallery-visible-narrow: 78%;
+  --project-gallery-ratio-x: 4;
+  --project-gallery-ratio-y: 3;
+  --project-gallery-height: clamp(18rem, 64svh, 42rem);
+  --project-gallery-visible-narrow: 86%;
   --project-gallery-control: 2.75rem;
   --project-gallery-text: var(--text, #f0f0f0);
   --project-gallery-muted: var(--text-muted, #8a9393);
@@ -12,10 +15,8 @@
   --project-gallery-focus: var(--azure-light, #4da3ff);
 
   box-sizing: border-box;
-  max-width: var(--project-gallery-max);
-  margin: 0 auto;
   padding-bottom: var(--project-gallery-space-after);
-  padding-inline: max(var(--project-gallery-gutter), env(safe-area-inset-left, 0px)) max(var(--project-gallery-gutter), env(safe-area-inset-right, 0px));
+  padding-inline: var(--project-gallery-inset-start) var(--project-gallery-inset-end);
 }
 
 .project-gallery__head {
@@ -67,16 +68,28 @@
   stroke-width: 1.5;
 }
 
+/* The track bleeds to both viewport edges; the gutter survives only as the inset
+   before the first slide and after the last one, and as the snap alignment edge. */
 .project-gallery__track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 2 * var(--project-gallery-gap)) / var(--project-gallery-visible));
+  grid-auto-columns: calc(var(--project-gallery-height) * var(--project-gallery-ratio-x) / var(--project-gallery-ratio-y));
   gap: var(--project-gallery-gap);
+  margin-inline: calc(-1 * var(--project-gallery-inset-start)) calc(-1 * var(--project-gallery-inset-end));
+  padding-inline: var(--project-gallery-inset-start) var(--project-gallery-inset-end);
+  scroll-padding-inline: var(--project-gallery-inset-start) var(--project-gallery-inset-end);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
+}
+
+/* Set by useDragScroll while a mouse drags the track: snapping would fight the pointer. */
+.project-gallery__track[data-dragging] {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
 }
 
 .project-gallery__track::-webkit-scrollbar {
@@ -91,7 +104,7 @@
 .project-gallery__open {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: var(--project-gallery-ratio-x) / var(--project-gallery-ratio-y);
   max-width: 100%;
   padding: 0;
   border: 0;

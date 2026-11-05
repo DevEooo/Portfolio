@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import ScrollRevealText from '../../components/ScrollRevealText.tsx';
 import '../../styles/project/ProjectOverview.css';
 
 type ProjectOverviewProps = {
@@ -13,7 +14,7 @@ export default function ProjectOverview({ label, overview }: ProjectOverviewProp
       <h2 id={headingId} className="project-overview__label">
         {label}
       </h2>
-      <p className="project-overview__lead">{overview}</p>
+      <ScrollRevealText text={overview} className="project-overview__lead" />
     </section>
   );
 }

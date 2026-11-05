@@ -3,7 +3,8 @@
   --image-lightbox-blur: 14px;
   --image-lightbox-max-width: 88vw;
   --image-lightbox-max-height: 78dvh;
-  --image-lightbox-ratio: 1.5;
+  --image-lightbox-ratio-x: 4;
+  --image-lightbox-ratio-y: 3;
   --image-lightbox-edge: 1.25rem;
   --image-lightbox-control: 2.75rem;
   --image-lightbox-text: var(--text, #f0f0f0);
@@ -23,6 +24,7 @@
   background: transparent;
   color: var(--image-lightbox-text);
   overflow: hidden;
+  cursor: zoom-out;
 }
 
 .image-lightbox[open] {
@@ -38,10 +40,11 @@
 
 .image-lightbox__frame {
   position: relative;
-  width: min(var(--image-lightbox-max-width), calc(var(--image-lightbox-max-height) * var(--image-lightbox-ratio)));
-  aspect-ratio: 3 / 2;
+  width: min(var(--image-lightbox-max-width), calc(var(--image-lightbox-max-height) * var(--image-lightbox-ratio-x) / var(--image-lightbox-ratio-y)));
+  aspect-ratio: var(--image-lightbox-ratio-x) / var(--image-lightbox-ratio-y);
   max-width: 100%;
   margin: 0;
+  cursor: default;
   transition:
     opacity var(--image-lightbox-duration) var(--image-lightbox-ease),
     transform var(--image-lightbox-duration) var(--image-lightbox-ease);

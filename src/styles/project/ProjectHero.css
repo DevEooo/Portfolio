@@ -1,6 +1,6 @@
 .project-hero {
   --project-hero-track: 280vh;
-  --project-hero-gutter: var(--project-gutter, max(16px, 1.5rem));
+  --project-hero-gutter: var(--gutter);
   --project-hero-top: calc(5rem + env(safe-area-inset-top, 0px));
   --project-hero-bottom: calc(1.75rem + env(safe-area-inset-bottom, 0px));
   --project-hero-photo-width: clamp(14rem, 34vw, 31rem);

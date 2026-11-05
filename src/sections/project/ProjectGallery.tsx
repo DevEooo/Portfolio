@@ -3,6 +3,7 @@ import type { ProjectMedia as ProjectMediaData, ProjectPageContent } from '../..
 import ProjectMedia from '../../components/ProjectMedia.tsx';
 import ImageLightbox from '../../components/ImageLightbox.tsx';
 import { fillTemplate, padIndex } from '../../lib/text.ts';
+import { slideStep, useDragScroll } from '../../lib/useDragScroll.ts';
 import '../../styles/project/ProjectGallery.css';
 
 const EDGE_TOLERANCE = 2;
@@ -20,19 +21,14 @@ export default function ProjectGallery({ images, content }: ProjectGalleryProps)
   const [inspected, setInspected] = useState<number | null>(null);
   const total = images.length;
 
-  const slideStep = (): number => {
-    const slides = trackRef.current?.children;
-    const a = slides?.[0] as HTMLElement | undefined;
-    const b = slides?.[1] as HTMLElement | undefined;
-    return a && b ? b.offsetLeft - a.offsetLeft : 0;
-  };
+  useDragScroll(trackRef);
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     let frame = 0;
     const sync = (): void => {
-      const step = slideStep();
+      const step = slideStep(track);
       setFirst(step > 0 ? Math.min(total - 1, Math.round(track.scrollLeft / step)) : 0);
       setAtStart(track.scrollLeft <= EDGE_TOLERANCE);
       setAtEnd(track.scrollLeft >= track.scrollWidth - track.clientWidth - EDGE_TOLERANCE);
@@ -52,11 +48,15 @@ export default function ProjectGallery({ images, content }: ProjectGalleryProps)
   }, [total]);
 
   const scrollBySlides = (direction: 1 | -1): void => {
-    trackRef.current?.scrollBy({ left: direction * slideStep() });
+    const track = trackRef.current;
+    if (track) track.scrollBy({ left: direction * slideStep(track) });
   };
 
   const inspectedImage = inspected === null ? null : (images[inspected] ?? null);
   const counter = (n: number): string => `${padIndex(n)} / ${padIndex(total)}`;
+  // Several slides are visible at once, so the track runs out of scroll before the last
+  // slide can become "first". Once the end is reached, the counter reports the last slide.
+  const current = atEnd && !atStart ? total : first + 1;
 
   if (total === 0) return null;
 
@@ -64,7 +64,7 @@ export default function ProjectGallery({ images, content }: ProjectGalleryProps)
     <section className="project-gallery" aria-label={content.label}>
       <div className="project-gallery__head">
         <p className="project-gallery__count" aria-live="polite">
-          {counter(first + 1)}
+          {counter(current)}
         </p>
         <div className="project-gallery__arrows">
           <button type="button" className="project-gallery__arrow" aria-label={content.previous} disabled={atStart} onClick={() => scrollBySlides(-1)}>

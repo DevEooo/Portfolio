@@ -20,7 +20,12 @@ export const projectPageContent = {
     navLabel: 'Project stages',
     stageTitles: { research: 'Research', plan: 'Plan', design: 'Design', build: 'Build', launch: 'Launch' },
   },
-  next: { navLabel: 'Next project', cursorLabel: 'Next project' },
+  next: {
+    navLabel: 'Next project',
+    title: 'Next project',
+    linkLabel: 'Next project: {name}',
+    cursorLabel: 'LET’S GO!',
+  },
 } as const satisfies ProjectPageContent;
 
 const PLACEHOLDER_SIZE = { width: 1920, height: 1280 } as const;

@@ -100,9 +100,15 @@
   vector-effect: non-scaling-stroke;
 }
 
-html.has-custom-cursor,
-html.has-custom-cursor * {
+html.has-custom-cursor:not(:has(dialog:modal)),
+html.has-custom-cursor:not(:has(dialog:modal)) * {
   cursor: none !important;
+}
+
+/* A modal dialog lives in the browser's top layer, above any z-index, so the custom
+   cursor would sit under its backdrop. Hand control back to the native cursor instead. */
+html:has(dialog:modal) .cursor {
+  display: none;
 }
 
 html.has-custom-cursor :is(input, textarea, select, [contenteditable]:not([contenteditable="false"])) {

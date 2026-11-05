@@ -174,6 +174,11 @@ export type ProjectPageContent = {
   };
   next: {
     navLabel: string;
+    /** Big display text in the middle of the section. */
+    title: string;
+    /** Accessible name of the link; `{name}` is the next project's name. */
+    linkLabel: string;
+    /** Text inside the cursor bubble while hovering the section. */
     cursorLabel: string;
   };
 };

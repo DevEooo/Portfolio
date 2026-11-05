@@ -1,7 +1,13 @@
-import { useId, useRef } from "react";
+import { useId, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { CURSOR_LABEL_ATTRIBUTE, CURSOR_PROJECT_SELECTOR } from "../lib/cursorTarget.ts";
+import {
+  CURSOR_ATTRIBUTE,
+  CURSOR_LABEL_ATTRIBUTE,
+  CURSOR_TARGET_SELECTOR,
+  type CursorKind,
+} from "../lib/cursorTarget.ts";
+import CursorBubble from "./CursorBubble.tsx";
 import "../styles/Cursor.css";
 
 gsap.registerPlugin(useGSAP);
@@ -49,6 +55,11 @@ const BADGE_GEOMETRY = (() => {
 
 const BADGE_SHOW_DURATION = 0.01;
 
+const CURSOR_BUBBLE = {
+  enter: { duration: 0.5, ease: "expo.out" },
+  leaveSpeed: 1.6,
+} as const;
+
 const SVG_NS = "http://www.w3.org/2000/svg";
 const FALLBACK_CHAR_WIDTH = 0.62;
 
@@ -92,6 +103,8 @@ export default function Cursor() {
   const arrowRef = useRef<HTMLSpanElement>(null);
   const textPathRef = useRef<SVGTextPathElement>(null);
   const measureRef = useRef<SVGTextElement>(null);
+  const bubbleRef = useRef<HTMLSpanElement>(null);
+  const [bubbleText, setBubbleText] = useState("");
 
   useGSAP(
     () => {
@@ -105,7 +118,10 @@ export default function Cursor() {
       const arrow = arrowRef.current;
       const textPath = textPathRef.current;
       const measure = measureRef.current;
-      if (!root || !dot || !trail || !ring || !badge || !name || !disc || !arrow || !textPath || !measure) return;
+      const bubble = bubbleRef.current;
+      if (!root || !dot || !trail || !ring || !badge || !name || !disc || !arrow || !textPath || !measure || !bubble) {
+        return;
+      }
 
       const mm = gsap.matchMedia();
 
@@ -117,8 +133,8 @@ export default function Cursor() {
         const html = document.documentElement;
         html.classList.add(CURSOR_HTML_CLASS);
 
-        gsap.set([dot, ring, badge], { xPercent: -50, yPercent: -50 });
-        gsap.set([root, badge], { autoAlpha: 0 });
+        gsap.set([dot, ring, badge, bubble], { xPercent: -50, yPercent: -50 });
+        gsap.set([root, badge, bubble], { autoAlpha: 0 });
 
         const dotX: Setter = gsap.quickSetter(dot, "x", "px") as Setter;
         const dotY: Setter = gsap.quickSetter(dot, "y", "px") as Setter;
@@ -172,8 +188,45 @@ export default function Cursor() {
             badgeTimeline.timeScale(PROJECT_BADGE.leaveSpeed).reverse();
           }
         };
-        const projectAt = (target: EventTarget | null): Element | null =>
-          target instanceof Element ? target.closest(CURSOR_PROJECT_SELECTOR) : null;
+        const bubbleTimeline = gsap
+          .timeline({ paused: true, defaults: CURSOR_BUBBLE.enter })
+          .fromTo(bubble, { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1 }, 0)
+          .fromTo([dot, ring], { autoAlpha: 1 }, { autoAlpha: 0, duration: tweenTime(CURSOR_MOTION.fade) }, 0);
+
+        let activeBubble: Element | null = null;
+        const setBubble = (target: Element | null): void => {
+          if (target === activeBubble) return;
+          activeBubble = target;
+
+          if (target) {
+            setBubbleText(target.getAttribute(CURSOR_LABEL_ATTRIBUTE) ?? "");
+            if (reduce) bubbleTimeline.progress(1);
+            else bubbleTimeline.timeScale(1).play();
+          } else if (reduce) {
+            bubbleTimeline.progress(0);
+          } else {
+            bubbleTimeline.timeScale(CURSOR_BUBBLE.leaveSpeed).reverse();
+          }
+        };
+
+        const targetAt = (target: EventTarget | null): Element | null =>
+          target instanceof Element ? target.closest(CURSOR_TARGET_SELECTOR) : null;
+
+        // Switch off the mode being left before switching on the new one, so their
+        // dot/ring fades never fight over the same element.
+        const setTarget = (target: Element | null): void => {
+          const kind = target?.getAttribute(CURSOR_ATTRIBUTE) as CursorKind | undefined;
+          if (kind === "bubble") {
+            setProject(null);
+            setBubble(target ?? null);
+          } else if (kind === "project") {
+            setBubble(null);
+            setProject(target ?? null);
+          } else {
+            setProject(null);
+            setBubble(null);
+          }
+        };
 
         let hasPosition = false;
         let isShown = false;
@@ -203,12 +256,12 @@ export default function Cursor() {
 
           const overField = event.target instanceof Element && event.target.closest(NATIVE_CURSOR_TARGETS) !== null;
           show(!overField);
-          setProject(overField ? null : projectAt(event.target));
+          setTarget(overField ? null : targetAt(event.target));
         };
 
         const onScroll = (): void => {
           if (!hasPosition || typeof document.elementFromPoint !== "function") return;
-          setProject(projectAt(document.elementFromPoint(lastX, lastY)));
+          setTarget(targetAt(document.elementFromPoint(lastX, lastY)));
         };
 
         const press = (isDown: boolean): void => {
@@ -281,6 +334,7 @@ export default function Cursor() {
             </span>
           </span>
         </span>
+        <CursorBubble ref={bubbleRef} text={bubbleText} />
       </span>
       <span ref={dotRef} className="cursor__dot" />
     </div>
