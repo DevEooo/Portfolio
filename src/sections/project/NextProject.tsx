@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import type { ProjectDetail, ProjectPageContent } from '../../types/site.ts';
 import { cursorBubbleTarget } from '../../lib/cursorTarget.ts';
 import { fillTemplate, padIndex, titleFit, titleFitByWord } from '../../lib/text.ts';
@@ -14,9 +13,9 @@ type NextProjectProps = {
 export default function NextProject({ next, position, total, content }: NextProjectProps) {
   return (
     <nav className="next-project" aria-label={content.navLabel}>
-      <Link
+      <a
         className="next-project__link"
-        to={`/work/${next.slug}`}
+        href={`/work/${next.slug}`}
         aria-label={fillTemplate(content.linkLabel, { name: next.name })}
         {...cursorBubbleTarget(content.cursorLabel)}
       >
@@ -33,7 +32,7 @@ export default function NextProject({ next, position, total, content }: NextProj
         >
           {content.title}
         </span>
-      </Link>
+      </a>
     </nav>
   );
 }

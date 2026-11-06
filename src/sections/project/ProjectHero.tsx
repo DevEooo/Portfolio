@@ -1,5 +1,4 @@
 import { Fragment, useRef } from 'react';
-import { Link } from 'react-router';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import type { ProjectDetail, ProjectPageContent } from '../../types/site.ts';
@@ -83,9 +82,9 @@ export default function ProjectHero({ project, position, total, content }: Proje
     <section ref={trackRef} className="project-hero" aria-labelledby={titleId}>
       <div className="project-hero__stage">
         <div className="project-hero__top">
-          <Link className="project-hero__back" to={content.backLink.href}>
+          <a className="project-hero__back" href={content.backLink.href}>
             {content.backLink.label}
-          </Link>
+          </a>
           <p className="project-hero__counter">
             <span aria-hidden="true">
               {padIndex(position)} / {padIndex(total)}

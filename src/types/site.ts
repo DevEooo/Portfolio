@@ -182,3 +182,9 @@ export type ProjectPageContent = {
     cursorLabel: string;
   };
 };
+
+export type TransitionContent = {
+  nextPageLabel: string;
+  nextProjectLabel: string;
+  pageNames: Readonly<Record<string, string>>;
+};

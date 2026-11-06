@@ -1,4 +1,4 @@
-import { ScrollRestoration, useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router';
 import Cursor from '../components/Cursor.tsx';
 import Header from '../sections/Header.tsx';
 import Footer from '../sections/Footer.tsx';
@@ -31,7 +31,6 @@ export default function ProjectPage() {
         <NextProject next={next} position={nextPosition} total={total} content={content.next} />
       </main>
       <Footer content={footerContent} inert={false} />
-      <ScrollRestoration />
     </>
   );
 }

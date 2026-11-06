@@ -2,7 +2,7 @@ import type { ProjectDetail, ProjectMedia, ProjectPageContent, ProjectStage } fr
 
 export const projectPageContent = {
   documentTitle: '{name} — Herald Panji',
-  backLink: { label: '← All work', href: '/work' },
+  backLink: { label: '← Back to index', href: '/' },
   counterLabel: 'Project {current} of {total}',
   scrollCue: 'Scroll down',
   meta: { type: 'Type', year: 'Year', status: 'Status' },
