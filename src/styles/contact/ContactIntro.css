@@ -1,0 +1,75 @@
+.contact-intro {
+  --contact-intro-gutter: var(--gutter);
+  --contact-intro-space-top: clamp(6.5rem, 4rem + 8vw, 11.5rem);
+  --contact-intro-eyebrow-size: 0.875rem;
+  --contact-intro-eyebrow-gap: 1rem;
+  --contact-intro-title-size: clamp(2.5rem, 2.04rem + 1.905vw, 3.75rem);
+  --contact-intro-title-weight: 700;
+  --contact-intro-title-leading: 1.12;
+  --contact-intro-title-tracking: -0.01em;
+  --contact-intro-clock-gap: 1.5rem;
+  --contact-intro-clock-gap-stacked: 3rem;
+
+  --contact-intro-text: var(--text, #f0f0f0);
+  --contact-intro-accent: var(--azure, #007fff); /* 4.7:1 on void */
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--contact-intro-space-top) + env(safe-area-inset-top, 0px));
+  padding-inline: max(var(--contact-intro-gutter), env(safe-area-inset-left, 0px))
+    max(var(--contact-intro-gutter), env(safe-area-inset-right, 0px));
+  color: var(--contact-intro-text);
+}
+
+.contact-intro__eyebrow {
+  margin: 0 0 var(--contact-intro-eyebrow-gap);
+  font-size: var(--contact-intro-eyebrow-size);
+  text-transform: uppercase;
+  color: var(--contact-intro-accent);
+}
+
+.contact-intro__eyebrow::before { content: "{\00a0"; content: "{\00a0" / ""; }
+.contact-intro__eyebrow::after { content: "\00a0}"; content: "\00a0}" / ""; }
+
+.contact-intro__title {
+  margin: 0;
+  font-size: var(--contact-intro-title-size);
+  font-weight: var(--contact-intro-title-weight);
+  line-height: var(--contact-intro-title-leading);
+  letter-spacing: var(--contact-intro-title-tracking);
+  text-transform: uppercase;
+}
+
+.contact-intro__line {
+  display: block;
+  overflow: hidden;
+  overflow: clip;
+  padding-bottom: 0.04em;
+}
+
+.contact-intro__line-text {
+  display: block;
+}
+
+.contact-intro__accent {
+  color: var(--contact-intro-accent);
+}
+
+.contact-intro__clock {
+  --live-clock-align: flex-end;
+
+  align-self: flex-end;
+  margin-top: var(--contact-intro-clock-gap);
+  text-align: right;
+}
+
+@media (max-width: 47.99rem) {
+  .contact-intro__clock {
+    --live-clock-align: flex-start;
+
+    align-self: flex-start;
+    margin-top: var(--contact-intro-clock-gap-stacked);
+    text-align: left;
+  }
+}

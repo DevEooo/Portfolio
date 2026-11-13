@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { FooterContent } from "../types/site.ts";
 import { WORDMARK } from "../lib/wordmark.ts";
+import OutlineButton from "../components/OutlineButton.tsx";
 import "../styles/Footer.css";
 
 gsap.registerPlugin(useGSAP);
@@ -167,6 +168,12 @@ export default function Footer({ content, inert = false }: FooterProps) {
         </div>
       </div>
 
+      <div className="footer__back">
+        <OutlineButton icon={<ArrowRight focusable="false" />} iconTurn="up" onClick={scrollToTop}>
+          {backToTop.label}
+        </OutlineButton>
+      </div>
+
       <div className="footer__bottom">
         <p className="footer__copyright">{content.copyright}</p>
       </div>
@@ -185,11 +192,7 @@ export default function Footer({ content, inert = false }: FooterProps) {
             </span>
           </span>
         ))}
-        <button type="button" className="footer__dot" aria-label={backToTop.label} onClick={scrollToTop}>
-          <svg className="footer__dot-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 20V5M5.5 11.5 12 5l6.5 6.5" />
-          </svg>
-        </button>
+        <span className="footer__dot" aria-hidden="true" />
       </div>
     </footer>
   );

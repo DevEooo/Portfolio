@@ -1,0 +1,94 @@
+/* Black button with a white border. On hover/focus an azure fill rises from the
+   bottom; on leave it sinks back down. Only transform is animated on the fill. */
+.outline-button {
+  --outline-button-height: 2.8125rem;
+  --outline-button-pad: 1.5rem;
+  --outline-button-gap: 0.5rem;
+  --outline-button-size: 0.75rem;
+  --outline-button-weight: 500;
+  --outline-button-tracking: 0.03em;
+  --outline-button-border: 1px;
+  --outline-button-icon-size: 1.1em;
+
+  --outline-button-font: var(--font-sans, "Inter", system-ui, sans-serif);
+  --outline-button-bg: var(--void, #141616);
+  --outline-button-text: var(--text, #f0f0f0);
+  --outline-button-fill: var(--azure, #007fff);
+  --outline-button-on-fill: var(--void, #141616); /* 4.7:1 on azure; white would be 3.8:1 */
+
+  --outline-button-duration: var(--duration-base, 500ms);
+  --outline-button-ease: var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+  --outline-button-turn-up: -90deg;
+  --outline-button-turn-up-right: -60deg;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--outline-button-gap);
+  min-height: var(--outline-button-height);
+  margin: 0;
+  padding-inline: var(--outline-button-pad);
+  border: var(--outline-button-border) solid var(--outline-button-text);
+  border-radius: 0;
+  background: var(--outline-button-bg);
+  color: var(--outline-button-text);
+  font-family: var(--outline-button-font);
+  font-size: var(--outline-button-size);
+  font-weight: var(--outline-button-weight);
+  letter-spacing: var(--outline-button-tracking);
+  cursor: pointer;
+  transition:
+    color var(--outline-button-duration) var(--outline-button-ease),
+    border-color var(--outline-button-duration) var(--outline-button-ease);
+}
+
+.outline-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--outline-button-fill);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform var(--outline-button-duration) var(--outline-button-ease);
+}
+
+.outline-button:hover,
+.outline-button:focus-visible {
+  border-color: var(--outline-button-fill);
+  color: var(--outline-button-on-fill);
+}
+
+.outline-button:hover::before,
+.outline-button:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.outline-button__icon {
+  display: inline-flex;
+  transition: transform var(--outline-button-duration) var(--outline-button-ease);
+}
+
+.outline-button__icon svg {
+  width: var(--outline-button-icon-size);
+  height: var(--outline-button-icon-size);
+}
+
+.outline-button--turn-up:is(:hover, :focus-visible) .outline-button__icon {
+  transform: rotate(var(--outline-button-turn-up));
+}
+
+.outline-button--turn-up-right:is(:hover, :focus-visible) .outline-button__icon {
+  transform: rotate(var(--outline-button-turn-up-right));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outline-button,
+  .outline-button::before,
+  .outline-button__icon {
+    transition-duration: 1ms;
+  }
+}

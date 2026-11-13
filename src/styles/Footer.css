@@ -29,8 +29,7 @@
   --footer-duration: var(--duration-fast, 180ms);
   --footer-ease: var(--ease-standard, ease-out);
   --footer-fill-duration: 320ms;
-  --footer-arrow-lift: -0.25rem;
-  --footer-dot-hit: 0.5rem;
+  --footer-back-gap: 1rem;
 
   box-sizing: border-box;
   padding: var(--footer-space-top) var(--footer-gutter) var(--footer-gutter);
@@ -210,8 +209,16 @@
   outline-offset: 3px;
 }
 
-.footer__bottom {
+/* Back to top sits on its own row above the divider (no longer inside the logo dot,
+   which was too small to hit reliably on phones). */
+.footer__back {
+  display: flex;
+  justify-content: flex-end;
   margin-top: var(--footer-space-middle);
+}
+
+.footer__bottom {
+  margin-top: var(--footer-back-gap);
   padding-block: 1rem;
   border-top: 1px solid var(--footer-line);
 }
@@ -261,36 +268,8 @@
   align-self: end;
   width: 100%;
   aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  padding: 0;
-  border: 0;
   background: var(--footer-accent);
-  color: var(--footer-on-accent);
-  cursor: pointer;
-  position: relative;
   transform-origin: 50% 100%;
-}
-
-.footer__dot::before {
-  content: "";
-  position: absolute;
-  inset: calc(var(--footer-dot-hit) * -1);
-}
-
-.footer__dot-arrow {
-  width: 46%;
-  height: 46%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: square;
-  transition: transform var(--footer-duration) var(--footer-ease);
-}
-
-.footer__dot:hover .footer__dot-arrow {
-  transform: translateY(var(--footer-arrow-lift));
 }
 
 .footer__sr-only {
@@ -319,8 +298,7 @@
   .footer__link,
   .footer__email,
   .footer__cta,
-  .footer__cta-icon,
-  .footer__dot-arrow {
+  .footer__cta-icon {
     transition: none;
   }
 }

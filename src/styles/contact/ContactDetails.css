@@ -1,0 +1,94 @@
+.contact-details {
+  --contact-details-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --contact-details-term-size: 0.8125rem;
+  --contact-details-value-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
+  --contact-details-term-gap: 1.25rem;
+  --contact-details-copy-gap: 2rem;
+  --contact-details-item-gap: 2.5rem;
+  --contact-details-stack-gap: 2rem;
+  --contact-details-tracking: 0.02em;
+  --contact-details-sticky-gap: 2rem;
+
+  --contact-details-text: var(--text, #f0f0f0);
+  --contact-details-label: var(--text-body, #b8bfbf);
+  --contact-details-link-hover: var(--azure-light, #4da3ff);
+  --contact-details-duration: var(--duration-fast, 200ms);
+  --contact-details-ease: var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+
+  min-width: 0;
+  color: var(--contact-details-text);
+}
+
+.contact-details__list {
+  display: grid;
+  gap: var(--contact-details-item-gap);
+  margin: 0;
+}
+
+.contact-details__term {
+  margin-bottom: var(--contact-details-term-gap);
+  font-family: var(--contact-details-mono);
+  font-size: var(--contact-details-term-size);
+  letter-spacing: var(--contact-details-tracking);
+  text-transform: uppercase;
+  color: var(--contact-details-label);
+}
+
+.contact-details__desc {
+  margin: 0;
+}
+
+.contact-details__value {
+  font-size: var(--contact-details-value-size);
+  overflow-wrap: anywhere;
+}
+
+.contact-details__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--contact-details-duration) var(--contact-details-ease);
+}
+
+.contact-details__link:hover {
+  color: var(--contact-details-link-hover);
+}
+
+.contact-details__copy {
+  margin-top: var(--contact-details-copy-gap);
+}
+
+.contact-details__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tablet: email and location side by side above the form */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .contact-details__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--contact-details-stack-gap);
+  }
+}
+
+/* Desktop: stays in view while the form column scrolls past */
+@media (min-width: 64rem) {
+  .contact-details {
+    position: sticky;
+    top: calc(var(--header-height, 4rem) + var(--contact-details-sticky-gap));
+    align-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-details__link {
+    transition: none;
+  }
+}

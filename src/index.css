@@ -7,6 +7,8 @@
   --font-mono: "Space Mono", monospace;
   --font-sans: "Inter", system-ui, sans-serif;
   --gutter: clamp(1.25rem, 0.5rem + 3.5vw, 4.5rem); /* page-wide inline margin, read by every section */
+  --duration-base: 500ms;                         /* hover fills, underlines, pill selection */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* ≈ GSAP power3.inOut */
   --z-transition: 9999;
   --z-preloader: 10000; /* above the page transition (9999) */
   --z-cursor: 10001;

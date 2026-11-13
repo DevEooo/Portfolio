@@ -1,0 +1,108 @@
+.text-field {
+  --text-field-mono: var(--font-mono, "Space Mono", ui-monospace, monospace);
+  --text-field-sans: var(--font-sans, "Inter", system-ui, sans-serif);
+  --text-field-label-size: 0.8125rem;
+  --text-field-size: 0.875rem;
+  --text-field-label-gap: 0.75rem;
+  --text-field-index-gap: 1rem;
+  --text-field-pad-block: 0.5rem;
+  --text-field-message-min: 6.5rem;
+  --text-field-stroke: 1px;
+  --text-field-stroke-focus: 2px;
+  --text-field-tracking: 0.02em;
+
+  --text-field-text: var(--text, #f0f0f0);
+  --text-field-label: var(--text-body, #b8bfbf);
+  --text-field-placeholder: var(--text-muted, #7d8686); /* 5.3:1 on void */
+  --text-field-rule: var(--line-strong, #687171);       /* 3.6:1, meets 1.4.11 */
+  --text-field-accent: var(--azure, #007fff);
+  --text-field-error: var(--error, #ff8f85);
+
+  --text-field-duration: var(--duration-base, 500ms);
+  --text-field-ease: var(--ease-in-out, cubic-bezier(0.65, 0, 0.35, 1));
+
+  min-width: 0;
+}
+
+.text-field__label {
+  display: block;
+  margin-bottom: var(--text-field-label-gap);
+  font-family: var(--text-field-mono);
+  font-size: var(--text-field-label-size);
+  letter-spacing: var(--text-field-tracking);
+  color: var(--text-field-label);
+}
+
+.text-field__index {
+  margin-right: var(--text-field-index-gap);
+  color: var(--text-field-accent);
+}
+
+.text-field__control {
+  position: relative;
+}
+
+.text-field__input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: var(--text-field-pad-block) 0;
+  border: 0;
+  border-bottom: var(--text-field-stroke) solid var(--text-field-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-field-text);
+  font-family: var(--text-field-sans);
+  font-size: var(--text-field-size);
+  line-height: 1.5;
+}
+
+textarea.text-field__input {
+  min-height: var(--text-field-message-min);
+  resize: vertical;
+}
+
+.text-field__input::placeholder {
+  color: var(--text-field-placeholder);
+  opacity: 1;
+}
+
+/* The 2px azure underline below is the visible focus indicator. */
+.text-field__input:focus {
+  outline: none;
+}
+
+.text-field__line {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: var(--text-field-stroke-focus);
+  background: var(--text-field-accent);
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform var(--text-field-duration) var(--text-field-ease);
+  pointer-events: none;
+}
+
+.text-field__control:focus-within .text-field__line {
+  transform: scaleX(1);
+  transform-origin: 0 50%;
+}
+
+.text-field__input[aria-invalid="true"] {
+  border-bottom-color: var(--text-field-error);
+}
+
+.text-field__error {
+  margin: var(--text-field-label-gap) 0 0;
+  font-family: var(--text-field-sans);
+  font-size: var(--text-field-size);
+  color: var(--text-field-error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-field__line {
+    transition-duration: 1ms;
+  }
+}

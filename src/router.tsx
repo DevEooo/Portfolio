@@ -24,6 +24,13 @@ export const router = createBrowserRouter([
           return { Component: ProjectPage, loader: projectLoader };
         },
       },
+      {
+        path: 'contact',
+        lazy: async () => {
+          const { default: ContactPage } = await import('./pages/ContactPage.tsx');
+          return { Component: ContactPage };
+        },
+      },
     ],
   },
 ]);

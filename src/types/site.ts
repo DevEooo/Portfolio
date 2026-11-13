@@ -198,3 +198,60 @@ export type WorkPageContent = {
   listLabel: string;
   cursorLabel: string;
 };
+
+export type ChoiceOption = {
+  value: string;
+  label: string;
+};
+
+export type ContactQuestion = {
+  name: string;
+  index: string;
+  label: string;
+  error: string;
+  options: readonly ChoiceOption[];
+};
+
+export type ContactTextField = {
+  index?: string;
+  label: string;
+  placeholder: string;
+};
+
+export type ContactRequiredField = ContactTextField & {
+  index: string;
+  error: string;
+};
+
+export type ContactPageContent = {
+  documentTitle: string;
+  eyebrow: string;
+  /** Rendered as two lines: `lead` / `rest` + `accent` (accent in azure). */
+  title: { lead: string; rest: string; accent: string };
+  clock: { label: string; timeZone: string };
+  details: {
+    label: string;
+    email: {
+      label: string;
+      address: string;
+      copyLabel: string;
+      copiedLabel: string;
+      failedLabel: string;
+      copiedAnnouncement: string;
+    };
+    location: { label: string; value: string };
+  };
+  form: {
+    label: string;
+    questions: readonly ContactQuestion[];
+    fields: {
+      name: ContactRequiredField;
+      company: ContactTextField;
+      email: ContactRequiredField;
+      message: ContactTextField;
+    };
+    submitLabel: string;
+    alternative: { lead: string; address: string };
+    sentStatus: string;
+  };
+};

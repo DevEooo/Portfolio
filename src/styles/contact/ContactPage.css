@@ -1,0 +1,38 @@
+/* Inline margin comes from the global --gutter token (index.css) so the page
+   lines up with the header and footer. */
+.contact-page {
+  --contact-page-gutter: var(--gutter);
+  --contact-page-body-top: clamp(4rem, 1rem + 6vw, 7rem);
+  --contact-page-body-pad: clamp(3rem, 1rem + 4vw, 5.5rem);
+  --contact-page-column-gap: 2rem;
+  --contact-page-row-gap: 5rem;
+  --contact-page-rule: var(--line, #2a2f2f); /* decorative divider */
+
+  display: block;
+  background: var(--void, #141616);
+  color: var(--text, #f0f0f0);
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+}
+
+.contact-page:focus {
+  outline: none;
+}
+
+/* Full-bleed divider above the details + form, then the two-column layout. */
+.contact-page__body {
+  box-sizing: border-box;
+  display: grid;
+  row-gap: var(--contact-page-row-gap);
+  margin-top: var(--contact-page-body-top);
+  padding-top: var(--contact-page-body-pad);
+  padding-inline: max(var(--contact-page-gutter), env(safe-area-inset-left, 0px))
+    max(var(--contact-page-gutter), env(safe-area-inset-right, 0px));
+  border-top: 1px solid var(--contact-page-rule);
+}
+
+@media (min-width: 64rem) {
+  .contact-page__body {
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+    column-gap: var(--contact-page-column-gap);
+  }
+}

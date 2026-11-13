@@ -1,0 +1,105 @@
+.live-clock {
+  --live-clock-font: var(--font-sans, "Inter", system-ui, sans-serif);
+  --live-clock-label-size: 0.875rem;
+  --live-clock-label-gap: 0.75rem;
+  --live-clock-size: clamp(3rem, 2.7rem + 0.9vw, 3.5rem);
+  --live-clock-seconds-ratio: 0.46;
+  --live-clock-seconds-size: calc(var(--live-clock-size) * var(--live-clock-seconds-ratio));
+  --live-clock-slot-width: 0.64em;
+  --live-clock-colon-gap: 0.2em;
+  --live-clock-colon-margin: 0.16em;
+  --live-clock-block: 0.12em;
+  --live-clock-seconds-gap: 0.3em;
+  /* Inter: baseline sits ~0.135em above the bottom of a 1em line box */
+  --live-clock-baseline: 0.135;
+
+  --live-clock-text: var(--text, #f0f0f0);
+  --live-clock-muted: var(--text-body, #b8bfbf);
+  --live-clock-accent: var(--azure, #007fff);
+
+  font-family: var(--live-clock-font);
+  color: var(--live-clock-text);
+}
+
+.live-clock__label {
+  margin: 0 0 var(--live-clock-label-gap);
+  font-size: var(--live-clock-label-size);
+  letter-spacing: 0.01em;
+  color: var(--live-clock-muted);
+}
+
+.live-clock__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.live-clock__time {
+  display: flex;
+  align-items: flex-end;
+  justify-content: var(--live-clock-align, flex-start); /* parents set --live-clock-align */
+  margin: 0;
+  font-size: var(--live-clock-size);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.live-clock__group {
+  display: inline-flex;
+}
+
+.live-clock__slot {
+  position: relative;
+  display: inline-block;
+  width: var(--live-clock-slot-width);
+  height: 1em;
+  overflow: hidden;
+  overflow: clip;
+}
+
+.live-clock__reel,
+.live-clock__glyph {
+  position: absolute;
+  inset: 0;
+}
+
+.live-clock__reel {
+  will-change: transform;
+}
+
+.live-clock__glyph {
+  line-height: 1;
+  text-align: center;
+  will-change: transform;
+}
+
+.live-clock__colon {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--live-clock-colon-gap);
+  height: 1em;
+  margin-inline: var(--live-clock-colon-margin);
+}
+
+.live-clock__block {
+  width: var(--live-clock-block);
+  height: var(--live-clock-block);
+  background: var(--live-clock-accent);
+}
+
+.live-clock__seconds {
+  margin-left: var(--live-clock-seconds-gap);
+  margin-bottom: calc(var(--live-clock-baseline) * (var(--live-clock-size) - var(--live-clock-seconds-size)));
+  font-size: var(--live-clock-seconds-size);
+  font-weight: 400;
+  color: var(--live-clock-muted);
+}
