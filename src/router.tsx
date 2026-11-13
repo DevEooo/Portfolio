@@ -8,6 +8,13 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: App },
       {
+        path: 'work',
+        lazy: async () => {
+          const { default: WorkPage } = await import('./pages/WorkPage.tsx');
+          return { Component: WorkPage };
+        },
+      },
+      {
         path: 'work/:slug',
         lazy: async () => {
           const [{ default: ProjectPage }, { projectLoader }] = await Promise.all([

@@ -1,0 +1,14 @@
+/* Inline margin comes from the global --gutter token (index.css), read directly
+   by each work section, so the page lines up with the header and footer. */
+.work-page {
+  --work-header-space: 8rem;
+
+  display: block;
+  background: var(--void, #141616);
+  color: var(--text, #f0f0f0);
+  font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+}
+
+.work-page:focus {
+  outline: none;
+}

@@ -188,3 +188,13 @@ export type TransitionContent = {
   nextProjectLabel: string;
   pageNames: Readonly<Record<string, string>>;
 };
+
+export type WorkPageContent = {
+  documentTitle: string;
+  eyebrow: string;
+  title: string;
+  countLabel: string;
+  intro: string;
+  listLabel: string;
+  cursorLabel: string;
+};
